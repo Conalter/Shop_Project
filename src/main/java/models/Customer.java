@@ -1,7 +1,10 @@
 package models;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 
+@Entity
+@Table(name = "customers")
 public class Customer {
 
     private int id;
@@ -25,6 +28,9 @@ public class Customer {
     public Customer() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -33,6 +39,7 @@ public class Customer {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -41,6 +48,7 @@ public class Customer {
         this.name = name;
     }
 
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -49,6 +57,7 @@ public class Customer {
         this.username = username;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -57,6 +66,7 @@ public class Customer {
         this.password = password;
     }
 
+    @Column(name = "money")
     public double getMoney() {
         return money;
     }
@@ -65,6 +75,7 @@ public class Customer {
         this.money = money;
     }
 
+    //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
     public ArrayList<Order> getOrderHistory() {
         return orderHistory;
     }
@@ -73,6 +84,7 @@ public class Customer {
         this.orderHistory = orderHistory;
     }
 
+    //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
     public Order getOrder() {
         return order;
     }
