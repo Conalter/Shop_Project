@@ -4,11 +4,11 @@ public abstract class Item {
 
     private int id;
     private String name;
-    private int price;
+    private double price;
     private String description;
     private int quantity;
 
-    public Item(String name, int price, String description, int quantity) {
+    public Item(String name, double price, String description, int quantity) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -34,11 +34,11 @@ public abstract class Item {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
