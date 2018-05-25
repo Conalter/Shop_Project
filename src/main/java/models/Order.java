@@ -2,6 +2,10 @@ package models;
 
 import com.sun.tools.javac.jvm.Items;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "orders")
 public class Order {
 
     private int id;
@@ -23,6 +27,9 @@ public class Order {
     public Order() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,6 +38,10 @@ public class Order {
         this.id = id;
     }
 
+
+    //UNSURE HOW TO DO MAPPING DUE TO ISSUES IN ORDER CLASS
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", nullable = false)
     public Customer getCustomer() {
         return customer;
     }
@@ -39,6 +50,7 @@ public class Order {
         this.customer = customer;
     }
 
+    //UNSURE HOW TO DO MAPPING DUE TO ISSUES IN ITEM CLASS
     public Items getItems() {
         return items;
     }
@@ -47,6 +59,7 @@ public class Order {
         this.items = items;
     }
 
+    @Column(name = "total_price")
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -55,6 +68,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    @Column(name = "OrderCompleted")
     public Boolean getCompleteOrder() {
         return completeOrder;
     }
@@ -63,6 +77,7 @@ public class Order {
         this.completeOrder = completeOrder;
     }
 
+    @Column(name = "date")
     public String getDate() {
         return date;
     }

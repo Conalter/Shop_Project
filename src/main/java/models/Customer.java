@@ -76,6 +76,7 @@ public class Customer {
     }
 
     //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
+    @OneToMany(mappedBy = "customer")
     public ArrayList<Order> getOrderHistory() {
         return orderHistory;
     }
@@ -85,6 +86,7 @@ public class Customer {
     }
 
     //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
+    @Transient
     public Order getOrder() {
         return order;
     }
