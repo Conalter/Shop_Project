@@ -44,4 +44,15 @@ public class ClothingTest {
         clothing.increaseQuantity(5);
         assertEquals(35, clothing.getQuantity());
     }
+
+    @Test
+    public void decreaseQuantity(){
+        clothing.decreaseQuantity(5);
+        assertEquals(25, clothing.getQuantity());
+    }
+
+    @Test
+    public void getTotalValue(){
+        this.clothing = new Clothing();
+    }
 }

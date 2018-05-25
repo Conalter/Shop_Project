@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -12,17 +13,16 @@ public class Customer {
     private String username;
     private String password;
     private double money;
-    private ArrayList<Order> orderHistory;
+    private List<Order> orderHistory;
     private Order order;
 
 
-    public Customer(String name, String username, String password, double money, ArrayList<Order> orderHistory, Order order) {
+    public Customer(String name, String username, String password, double money) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.money = money;
-        this.orderHistory = orderHistory;
-        this.order = order;
+        this.orderHistory = new ArrayList<Order>();
     }
 
     public Customer() {
@@ -77,11 +77,11 @@ public class Customer {
 
     //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
     @OneToMany(mappedBy = "customer")
-    public ArrayList<Order> getOrderHistory() {
+    public List<Order> getOrderHistory() {
         return orderHistory;
     }
 
-    public void setOrderHistory(ArrayList<Order> orderHistory) {
+    public void setOrderHistory(List<Order> orderHistory) {
         this.orderHistory = orderHistory;
     }
 
