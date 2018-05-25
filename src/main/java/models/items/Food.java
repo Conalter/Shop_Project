@@ -4,7 +4,7 @@ public class Food extends Item {
 
     private String date;
 
-    public Food(String name, int price, String description, int quantity, String date) {
+    public Food(String name, double price, String description, int quantity, String date) {
         super(name, price, description, quantity);
         this.date = date;
     }

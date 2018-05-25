@@ -1,28 +1,37 @@
 package models;
 
 import com.sun.tools.javac.jvm.Items;
+import models.items.Item;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "orders")
 public class Order {
 
     private int id;
     private Customer customer;
-    private Items items;
+    private List<Item> items;
     private double totalPrice;
     private Boolean completeOrder;
     private String date;
 
-    public Order(int id, Customer customer, Items items, double totalPrice, Boolean completeOrder, String date) {
-        this.id = id;
+    public Order(String date, Customer customer) {
         this.customer = customer;
-        this.items = items;
-        this.totalPrice = totalPrice;
-        this.completeOrder = completeOrder;
+        this.items = new ArrayList<Item>();
+        this.totalPrice = 0;
+        this.completeOrder = false;
         this.date = date;
     }
 
     public Order() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,6 +40,8 @@ public class Order {
         this.id = id;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
     public Customer getCustomer() {
         return customer;
     }
@@ -39,14 +50,19 @@ public class Order {
         this.customer = customer;
     }
 
-    public Items getItems() {
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "order_item",
+            inverseJoinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)},
+            joinColumns = {@JoinColumn(name = "order_id", nullable = false, updatable = false)})
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Items items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
+    @Column(name = "total_price")
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -55,6 +71,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    @Column(name = "OrderCompleted")
     public Boolean getCompleteOrder() {
         return completeOrder;
     }
@@ -63,6 +80,7 @@ public class Order {
         this.completeOrder = completeOrder;
     }
 
+    @Column(name = "date")
     public String getDate() {
         return date;
     }

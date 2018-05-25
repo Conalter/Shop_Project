@@ -20,5 +20,4 @@ public class Clothing extends Item {
         this.size = size;
     }
 
-
 }

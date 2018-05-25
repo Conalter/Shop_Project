@@ -1,7 +1,11 @@
 package models;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "customers")
 public class Customer {
 
     private int id;
@@ -9,22 +13,24 @@ public class Customer {
     private String username;
     private String password;
     private double money;
-    private ArrayList<Order> orderHistory;
+    private List<Order> orderHistory;
     private Order order;
 
 
-    public Customer(String name, String username, String password, double money, ArrayList<Order> orderHistory, Order order) {
+    public Customer(String name, String username, String password, double money) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.money = money;
-        this.orderHistory = orderHistory;
-        this.order = order;
+        this.orderHistory = new ArrayList<Order>();
     }
 
     public Customer() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -33,6 +39,7 @@ public class Customer {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -41,6 +48,7 @@ public class Customer {
         this.name = name;
     }
 
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -49,6 +57,7 @@ public class Customer {
         this.username = username;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -57,6 +66,7 @@ public class Customer {
         this.password = password;
     }
 
+    @Column(name = "money")
     public double getMoney() {
         return money;
     }
@@ -65,14 +75,18 @@ public class Customer {
         this.money = money;
     }
 
-    public ArrayList<Order> getOrderHistory() {
+    //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
+    @OneToMany(mappedBy = "customer")
+    public List<Order> getOrderHistory() {
         return orderHistory;
     }
 
-    public void setOrderHistory(ArrayList<Order> orderHistory) {
+    public void setOrderHistory(List<Order> orderHistory) {
         this.orderHistory = orderHistory;
     }
 
+    //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
+    @Transient
     public Order getOrder() {
         return order;
     }
