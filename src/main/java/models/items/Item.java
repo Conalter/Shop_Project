@@ -57,4 +57,10 @@ public abstract class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public void increaseQuantity(int number){
+        this.quantity += number;
+    }
+
+
 }

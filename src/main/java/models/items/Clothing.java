@@ -19,4 +19,6 @@ public class Clothing extends Item {
     public void setSize(Size size) {
         this.size = size;
     }
+
+
 }
