@@ -38,4 +38,10 @@ public class ClothingTest {
     public void hasSize(){
         assertEquals(Size.MEDIUM, clothing.getSize());
     }
+
+    @Test
+    public void increaseQuantity(){
+        clothing.increaseQuantity(5);
+        assertEquals(35, clothing.getQuantity());
+    }
 }
