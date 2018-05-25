@@ -4,7 +4,7 @@ public class Clothing extends Item {
 
     private Size size;
 
-    public Clothing(String name, int price, String description, int quantity, Size size) {
+    public Clothing(String name, double price, String description, int quantity, Size size) {
         super(name, price, description, quantity);
         this.size = size;
     }
@@ -19,4 +19,6 @@ public class Clothing extends Item {
     public void setSize(Size size) {
         this.size = size;
     }
+
+
 }
