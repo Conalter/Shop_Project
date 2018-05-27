@@ -55,4 +55,7 @@ public class ClothingTest {
     public void getTotalValue(){
         this.clothing = new Clothing();
     }
+
+
+
 }

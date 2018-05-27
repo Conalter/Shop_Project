@@ -88,4 +88,12 @@ public class Order {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public void changeOrderStatusToFalse(){
+            this.completeOrder = false;
+    }
+
+    public void changeOrderStatusToTrue(){
+        this.completeOrder = true;
+    }
 }
