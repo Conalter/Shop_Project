@@ -95,7 +95,7 @@ public class DBHelper {
 
     public static void addItemToOrder(Item item, Order order, int quantity){
         item.addOrderToOrders(order);
-        order.addItemToOrder(item);
+        order.addItemToOrder(item, quantity);
 
         OrderQuantity newOrderQuantity = new OrderQuantity(order, item, quantity);
         save(newOrderQuantity);

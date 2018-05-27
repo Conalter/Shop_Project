@@ -101,24 +101,22 @@ public class Order {
         this.orderQuantity = orderQuantity;
     }
 
-    public void addItemToOrder(Item item){
+    public void addItemToOrder(Item item, int quantity){
         this.items.add(item);
-        updatePrice();
+        double value = item.getPrice() * quantity;
+        updatePrice(value);
+
+
     }
 
-    public void removeItemToOrder(Item item){
+    public void removeItemToOrder(Item item, int quantity){
         this.items.remove(item);
-        updatePrice();
+        double value = item.getPrice() * quantity;
+        updatePrice(-value);
     }
 
-
-
-    public void updatePrice(){
-        double total = 0;
-        for(Item item : items){
-            total += item.getPrice();
-        }
-        this.totalPrice = total;
+    public void updatePrice(double value){
+        this.totalPrice += value;
     }
 
     public void changeOrderStatusToFalse(){
