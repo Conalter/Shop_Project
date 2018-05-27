@@ -22,7 +22,7 @@ public class DBHelper {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
-            session.save(object);
+            session.saveOrUpdate(object);
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
@@ -42,20 +42,6 @@ public class DBHelper {
                 session.delete(result);
             }
         } catch (HibernateException e){
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
-
-    public static void update(Object object){
-        session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            transaction = session.beginTransaction();
-            session.update(object);
-            transaction.commit();
-        } catch (HibernateException e) {
             transaction.rollback();
             e.printStackTrace();
         } finally {
@@ -115,12 +101,12 @@ public class DBHelper {
     public static void addItemToOrder(Item item, Order order, int quantity){
         item.addOrderToOrders(order);
         order.addItemToOrder(item);
-        update(order);
+        save(order);
 
         OrderQuantity newOrderQuantity = new OrderQuantity(order, item, quantity);
         save(newOrderQuantity);
         item.setOrderQuantity(newOrderQuantity);
-        update(item);
+        save(item);
         order.addOrderQuantityToOrderQuantity(newOrderQuantity);
     }
 
@@ -128,7 +114,7 @@ public class DBHelper {
         ShopStock newStock = new ShopStock(item, quantity);
         save(newStock);
         item.setStock(newStock);
-        update(item);
+        save(item);
 
     }
 }
