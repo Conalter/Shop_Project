@@ -95,15 +95,6 @@ public abstract class Item {
         this.stock = stock;
     }
 
-//    @OneToOne()
-////    public OrderQuantity getOrderQuantity() {
-////        return orderQuantity;
-////    }
-////
-////    public void setOrderQuantity(OrderQuantity orderQuantity) {
-////        this.orderQuantity = orderQuantity;
-////    }
-
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     public List<OrderQuantity> getOrderQuantities() {
         return orderQuantities;

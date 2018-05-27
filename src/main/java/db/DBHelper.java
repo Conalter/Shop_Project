@@ -119,7 +119,10 @@ public class DBHelper {
 
         try {
             Criteria cr = session.createCriteria(Item.class);
-            cr.add(Restrictions.eq("order", order));
+//            cr.add(Restrictions.eq("order", order));
+//            items = cr.list();
+            cr.createAlias("orders", "order");
+            cr.add(Restrictions.eq("order.id", order.getId()));
             items = cr.list();
         } catch (HibernateException e) {
             e.printStackTrace();
