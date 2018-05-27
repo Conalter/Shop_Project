@@ -94,4 +94,12 @@ public class Customer {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    public void reduceCustomerCash(double value){
+        this.money -= value;
+    }
+
+    public void increaseCustomerCash(double value){
+        this.money += value;
+    }
 }
