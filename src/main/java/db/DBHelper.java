@@ -67,12 +67,9 @@ public class DBHelper {
         session = HibernateUtil.getSessionFactory().openSession();
         List<T> results = null;
         try {
-            transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(classType);
             results = cr.list();
-            transaction.commit();
         } catch (HibernateException e) {
-            transaction.rollback();
             e.printStackTrace();
         } finally {
         }
@@ -83,13 +80,10 @@ public class DBHelper {
         session = HibernateUtil.getSessionFactory().openSession();
         T result = null;
         try {
-            transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(classType);
             cr.add(Restrictions.eq("id", id));
             result = (T)cr.uniqueResult();
-            transaction.commit();
         } catch (HibernateException e) {
-            transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -126,14 +120,10 @@ public class DBHelper {
         List<Item> items = null;
 
         try {
-            transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Item.class);
             cr.add(Restrictions.eq("order", order));
             items = cr.list();
-
-            transaction.commit();
         } catch (HibernateException e) {
-            transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
