@@ -45,6 +45,11 @@ public class Seeds {
         List<Customer> allCustomers = DBHelper.getAll(Customer.class);
         List<Order> allOrder = DBHelper.getAll(Order.class);
 
+
+        List<Electronics> allElectronicItems = DBHelper.getAll(Electronics.class);
+        List<Food> allFoodItems = DBHelper.getAll(Food.class);
+        List<Clothing> allClothingItems = DBHelper.getAll(Clothing.class);
+
     }
 
 }
