@@ -5,7 +5,9 @@ import models.items.Item;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -17,6 +19,7 @@ public class Order {
     private double totalPrice;
     private Boolean completeOrder;
     private String date;
+    private Set<OrderQuantity> orderQuantity;
 
     public Order(String date, Customer customer) {
         this.customer = customer;
@@ -24,6 +27,7 @@ public class Order {
         this.totalPrice = 0;
         this.completeOrder = false;
         this.date = date;
+        this.orderQuantity = new HashSet<OrderQuantity>();
     }
 
     public Order() {
@@ -40,8 +44,8 @@ public class Order {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id")
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     public Customer getCustomer() {
         return customer;
     }
@@ -51,7 +55,7 @@ public class Order {
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "order_item",
+    @JoinTable(name = "order_items",
             inverseJoinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)},
             joinColumns = {@JoinColumn(name = "order_id", nullable = false, updatable = false)})
     public List<Item> getItems() {
@@ -87,5 +91,30 @@ public class Order {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    public Set<OrderQuantity> getOrderQuantity() {
+        return orderQuantity;
+    }
+
+    public void setOrderQuantity(Set<OrderQuantity> orderQuantity) {
+        this.orderQuantity = orderQuantity;
+    }
+
+    public void addItemToOrder(Item item){
+        this.items.add(item);
+    }
+
+    public void changeOrderStatusToFalse(){
+            this.completeOrder = false;
+    }
+
+    public void changeOrderStatusToTrue(){
+        this.completeOrder = true;
+    }
+
+    public void addOrderQuantityToOrderQuantity(OrderQuantity orderQuantity){
+        this.orderQuantity.add(orderQuantity);
     }
 }

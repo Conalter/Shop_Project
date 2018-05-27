@@ -1,5 +1,9 @@
 package db;
 
+import models.Order;
+import models.OrderQuantity;
+import models.ShopStock;
+import models.items.Item;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -108,4 +112,23 @@ public class DBHelper {
         return result;
     }
 
+    public static void addItemToOrder(Item item, Order order, int quantity){
+        item.addOrderToOrders(order);
+        order.addItemToOrder(item);
+        update(order);
+
+        OrderQuantity newOrderQuantity = new OrderQuantity(order, item, quantity);
+        save(newOrderQuantity);
+        item.setOrderQuantity(newOrderQuantity);
+        update(item);
+        order.addOrderQuantityToOrderQuantity(newOrderQuantity);
+    }
+
+    public static void addItemToStock(Item item, int quantity){
+        ShopStock newStock = new ShopStock(item, quantity);
+        save(newStock);
+        item.setStock(newStock);
+        update(item);
+
+    }
 }

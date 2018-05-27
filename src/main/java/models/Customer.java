@@ -75,8 +75,7 @@ public class Customer {
         this.money = money;
     }
 
-    //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     public List<Order> getOrderHistory() {
         return orderHistory;
     }
@@ -93,5 +92,13 @@ public class Customer {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public void reduceCustomerCash(double value){
+        this.money -= value;
+    }
+
+    public void increaseCustomerCash(double value){
+        this.money += value;
     }
 }

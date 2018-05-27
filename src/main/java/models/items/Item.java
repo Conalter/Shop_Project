@@ -1,6 +1,8 @@
 package models.items;
 
 import models.Order;
+import models.OrderQuantity;
+import models.ShopStock;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,14 +17,14 @@ public abstract class Item {
     private String name;
     private double price;
     private String description;
-    private int quantity;
     private List<Order> orders;
+    private ShopStock stock;
+    private OrderQuantity orderQuantity;
 
-    public Item(String name, double price, String description, int quantity) {
+    public Item(String name, double price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.quantity = quantity;
         this.orders = new ArrayList<Order>();
     }
 
@@ -67,17 +69,8 @@ public abstract class Item {
         this.description = description;
     }
 
-    @Column(name = "quantity")
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "order_item",
+    @JoinTable(name = "order_items",
             joinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "order_id", nullable = false, updatable = false)})
     public List<Order> getOrders() {
@@ -88,13 +81,25 @@ public abstract class Item {
         this.orders = orders;
     }
 
-    public void increaseQuantity(int number){
-        this.quantity += number;
+    @OneToOne()
+    public ShopStock getStock() {
+        return stock;
     }
 
-    public void decreaseQuantity(int number){
-        this.quantity -= number;
+    public void setStock(ShopStock stock) {
+        this.stock = stock;
     }
 
+    @OneToOne()
+    public OrderQuantity getOrderQuantity() {
+        return orderQuantity;
+    }
 
+    public void setOrderQuantity(OrderQuantity orderQuantity) {
+        this.orderQuantity = orderQuantity;
+    }
+
+    public void addOrderToOrders(Order order){
+        this.orders.add(order);
+    }
 }
