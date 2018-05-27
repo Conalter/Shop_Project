@@ -21,9 +21,11 @@ public class Seeds {
 
         DBHelper.save(order1);
 
-        Clothing clothing1 = new Clothing("T-Shirt", 30.00, "White T-Shirt", Size.MEDIUM);
-        Food food1 = new Food("Tin of Tuna", 5.00, "Tasty Tuna!", "30/9/18");
-        Electronics electronics1 = new Electronics("Game Boy", 30.00, "Old school Game Boy", "V6");
+        String pictureLink = "https://images.pexels.com/photos/262333/pexels-photo-262333.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+
+        Clothing clothing1 = new Clothing("T-Shirt", 30.00, "White T-Shirt", Size.MEDIUM, pictureLink);
+        Food food1 = new Food("Tin of Tuna", 5.00, "Tasty Tuna!", "30/9/18", pictureLink);
+        Electronics electronics1 = new Electronics("Game Boy", 30.00, "Old school Game Boy", "V6", pictureLink);
 
         DBHelper.save(clothing1);
         DBHelper.save(food1);

@@ -20,12 +20,14 @@ public abstract class Item {
     private List<Order> orders;
     private ShopStock stock;
     private OrderQuantity orderQuantity;
+    private String pictureLink;
 
-    public Item(String name, double price, String description) {
+    public Item(String name, double price, String description, String pictureLink) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.orders = new ArrayList<Order>();
+        this.pictureLink = pictureLink;
     }
 
     public Item() {
@@ -93,6 +95,15 @@ public abstract class Item {
     @OneToOne()
     public OrderQuantity getOrderQuantity() {
         return orderQuantity;
+    }
+
+    @Column(name = "picture_link")
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
     }
 
     public void setOrderQuantity(OrderQuantity orderQuantity) {

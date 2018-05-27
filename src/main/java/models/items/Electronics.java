@@ -12,8 +12,8 @@ public class Electronics extends Item {
 
     private String voltage;
 
-    public Electronics(String name, double price, String description, String voltage) {
-        super(name, price, description);
+    public Electronics(String name, double price, String description, String voltage, String pictureLink) {
+        super(name, price, description, pictureLink);
         this.voltage = voltage;
     }
 
