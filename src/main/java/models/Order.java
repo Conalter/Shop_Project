@@ -1,6 +1,5 @@
 package models;
 
-import com.sun.tools.javac.jvm.Items;
 import models.items.Item;
 
 import javax.persistence.*;

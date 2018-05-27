@@ -19,7 +19,8 @@ public abstract class Item {
     private String description;
     private List<Order> orders;
     private ShopStock stock;
-    private OrderQuantity orderQuantity;
+//    private OrderQuantity orderQuantity;
+    private List<OrderQuantity> orderQuantities;
     private String pictureLink;
 
     public Item(String name, double price, String description, String pictureLink) {
@@ -28,6 +29,8 @@ public abstract class Item {
         this.description = description;
         this.orders = new ArrayList<Order>();
         this.pictureLink = pictureLink;
+//        new line
+        this.orderQuantities = new ArrayList<OrderQuantity>();
     }
 
     public Item() {
@@ -92,9 +95,22 @@ public abstract class Item {
         this.stock = stock;
     }
 
-    @OneToOne()
-    public OrderQuantity getOrderQuantity() {
-        return orderQuantity;
+//    @OneToOne()
+////    public OrderQuantity getOrderQuantity() {
+////        return orderQuantity;
+////    }
+////
+////    public void setOrderQuantity(OrderQuantity orderQuantity) {
+////        this.orderQuantity = orderQuantity;
+////    }
+
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    public List<OrderQuantity> getOrderQuantities() {
+        return orderQuantities;
+    }
+
+    public void setOrderQuantities(List<OrderQuantity> orderQuantities) {
+        this.orderQuantities = orderQuantities;
     }
 
     @Column(name = "picture_link")
@@ -106,11 +122,11 @@ public abstract class Item {
         this.pictureLink = pictureLink;
     }
 
-    public void setOrderQuantity(OrderQuantity orderQuantity) {
-        this.orderQuantity = orderQuantity;
-    }
-
     public void addOrderToOrders(Order order){
         this.orders.add(order);
+    }
+
+    public void addOrderQuantityEntry(OrderQuantity orderQuantity){
+        this.orderQuantities.add(orderQuantity);
     }
 }

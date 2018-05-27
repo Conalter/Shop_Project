@@ -39,7 +39,7 @@ public class Seeds {
         DBHelper.addItemToOrder(food1, order1, 50);
         DBHelper.addItemToOrder(electronics1, order1, 55);
 
-//        List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
+        List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
 
         List<Item> allItems = DBHelper.getAll(Item.class);
         List<Customer> allCustomers = DBHelper.getAll(Customer.class);
