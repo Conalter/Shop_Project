@@ -1,5 +1,6 @@
 package db;
 
+import models.Customer;
 import models.Order;
 import models.OrderQuantity;
 import models.ShopStock;
@@ -129,4 +130,22 @@ public class DBHelper {
         }
         return items;
     }
+
+    public static List<Order> listAllOrdersForCustomer(Customer customer){
+        List<Order> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            Criteria criteria = session.createCriteria(Order.class);
+            criteria.add(Restrictions.eq("customer", customer));
+            results = criteria.list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+
+    }
+
 }
