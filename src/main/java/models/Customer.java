@@ -101,4 +101,5 @@ public class Customer {
     public void increaseCustomerCash(double value){
         this.money += value;
     }
+
 }
