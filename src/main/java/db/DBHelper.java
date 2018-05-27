@@ -101,13 +101,16 @@ public class DBHelper {
     public static void addItemToOrder(Item item, Order order, int quantity){
         item.addOrderToOrders(order);
         order.addItemToOrder(item);
-        save(order);
+//        save(order);
 
         OrderQuantity newOrderQuantity = new OrderQuantity(order, item, quantity);
         save(newOrderQuantity);
         item.setOrderQuantity(newOrderQuantity);
-        save(item);
+//        save(item);
         order.addOrderQuantityToOrderQuantity(newOrderQuantity);
+
+        save(order);
+        save(item);
     }
 
     public static void addItemToStock(Item item, int quantity){
@@ -116,5 +119,25 @@ public class DBHelper {
         item.setStock(newStock);
         save(item);
 
+    }
+
+    public static List<Item> listAllItemsForOrder(Order order){
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Item> items = null;
+
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Item.class);
+            cr.add(Restrictions.eq("order", order));
+            items = cr.list();
+
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return items;
     }
 }
