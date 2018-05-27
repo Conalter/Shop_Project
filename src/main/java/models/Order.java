@@ -119,6 +119,10 @@ public class Order {
         this.totalPrice += value;
     }
 
+    public int numberOfItemsInOrder(){
+        return this.items.size();
+    }
+
     public void changeOrderStatusToFalse(){
             this.completeOrder = false;
     }
