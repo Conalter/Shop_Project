@@ -1,5 +1,6 @@
 package db;
 
+import models.Customer;
 import models.Order;
 import models.OrderQuantity;
 import models.ShopStock;
@@ -67,12 +68,9 @@ public class DBHelper {
         session = HibernateUtil.getSessionFactory().openSession();
         List<T> results = null;
         try {
-            transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(classType);
             results = cr.list();
-            transaction.commit();
         } catch (HibernateException e) {
-            transaction.rollback();
             e.printStackTrace();
         } finally {
         }
@@ -83,13 +81,10 @@ public class DBHelper {
         session = HibernateUtil.getSessionFactory().openSession();
         T result = null;
         try {
-            transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(classType);
             cr.add(Restrictions.eq("id", id));
             result = (T)cr.uniqueResult();
-            transaction.commit();
         } catch (HibernateException e) {
-            transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -100,13 +95,11 @@ public class DBHelper {
 
     public static void addItemToOrder(Item item, Order order, int quantity){
         item.addOrderToOrders(order);
-        order.addItemToOrder(item);
-//        save(order);
+        order.addItemToOrder(item, quantity);
 
         OrderQuantity newOrderQuantity = new OrderQuantity(order, item, quantity);
         save(newOrderQuantity);
-        item.setOrderQuantity(newOrderQuantity);
-//        save(item);
+        item.addOrderQuantityEntry(newOrderQuantity);
         order.addOrderQuantityToOrderQuantity(newOrderQuantity);
 
         save(order);
@@ -126,18 +119,33 @@ public class DBHelper {
         List<Item> items = null;
 
         try {
-            transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Item.class);
-            cr.add(Restrictions.eq("order", order));
+            cr.createAlias("orders", "order");
+            cr.add(Restrictions.eq("order.id", order.getId()));
             items = cr.list();
-
-            transaction.commit();
         } catch (HibernateException e) {
-            transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
         }
         return items;
     }
+
+    public static List<Order> listAllOrdersForCustomer(Customer customer){
+        List<Order> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            Criteria criteria = session.createCriteria(Order.class);
+            criteria.add(Restrictions.eq("customer", customer));
+            results = criteria.list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+
+    }
+
 }

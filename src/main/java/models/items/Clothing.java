@@ -13,8 +13,8 @@ public class Clothing extends Item {
 
     private Size size;
 
-    public Clothing(String name, double price, String description, Size size) {
-        super(name, price, description);
+    public Clothing(String name, double price, String description, Size size, String pictureLink) {
+        super(name, price, description, pictureLink );
         this.size = size;
     }
 

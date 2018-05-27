@@ -1,6 +1,5 @@
 package models;
 
-import com.sun.tools.javac.jvm.Items;
 import models.items.Item;
 
 import javax.persistence.*;
@@ -102,8 +101,26 @@ public class Order {
         this.orderQuantity = orderQuantity;
     }
 
-    public void addItemToOrder(Item item){
+    public void addItemToOrder(Item item, int quantity){
         this.items.add(item);
+        double value = item.getPrice() * quantity;
+        updatePrice(value);
+
+
+    }
+
+    public void removeItemToOrder(Item item, int quantity){
+        this.items.remove(item);
+        double value = item.getPrice() * quantity;
+        updatePrice(-value);
+    }
+
+    public void updatePrice(double value){
+        this.totalPrice += value;
+    }
+
+    public int numberOfItemsInOrder(){
+        return this.items.size();
     }
 
     public void changeOrderStatusToFalse(){

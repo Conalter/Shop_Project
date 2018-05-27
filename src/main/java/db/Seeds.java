@@ -21,9 +21,11 @@ public class Seeds {
 
         DBHelper.save(order1);
 
-        Clothing clothing1 = new Clothing("T-Shirt", 30.00, "White T-Shirt", Size.MEDIUM);
-        Food food1 = new Food("Tin of Tuna", 5.00, "Tasty Tuna!", "30/9/18");
-        Electronics electronics1 = new Electronics("Game Boy", 30.00, "Old school Game Boy", "V6");
+        String pictureLink = "https://images.pexels.com/photos/262333/pexels-photo-262333.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+
+        Clothing clothing1 = new Clothing("T-Shirt", 30.00, "White T-Shirt", Size.MEDIUM, pictureLink);
+        Food food1 = new Food("Tin of Tuna", 5.00, "Tasty Tuna!", "30/9/18", pictureLink);
+        Electronics electronics1 = new Electronics("Game Boy", 30.00, "Old school Game Boy", "V6", pictureLink);
 
         DBHelper.save(clothing1);
         DBHelper.save(food1);
@@ -37,11 +39,17 @@ public class Seeds {
         DBHelper.addItemToOrder(food1, order1, 50);
         DBHelper.addItemToOrder(electronics1, order1, 55);
 
-//        List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
+        List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
+        List<Order> customer1Orders = DBHelper.listAllOrdersForCustomer(customer1);
 
         List<Item> allItems = DBHelper.getAll(Item.class);
         List<Customer> allCustomers = DBHelper.getAll(Customer.class);
         List<Order> allOrder = DBHelper.getAll(Order.class);
+
+
+        List<Electronics> allElectronicItems = DBHelper.getAll(Electronics.class);
+        List<Food> allFoodItems = DBHelper.getAll(Food.class);
+        List<Clothing> allClothingItems = DBHelper.getAll(Clothing.class);
 
     }
 

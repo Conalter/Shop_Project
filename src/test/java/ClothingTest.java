@@ -11,7 +11,8 @@ public class ClothingTest {
 
     @Before
     public void before(){
-        this.clothing = new Clothing("T-Shirt", 20.00, "Plain White T", Size.MEDIUM);
+        String pictureLink = "https://images.pexels.com/photos/262333/pexels-photo-262333.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+        this.clothing = new Clothing("T-Shirt", 20.00, "Plain White T", Size.MEDIUM, pictureLink);
     }
 
     @Test
