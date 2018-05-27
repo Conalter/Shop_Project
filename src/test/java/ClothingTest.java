@@ -34,11 +34,6 @@ public class ClothingTest {
         assertEquals(Size.MEDIUM, clothing.getSize());
     }
 
-    @Test
-    public void getTotalValue(){
-        this.clothing = new Clothing();
-    }
-
 
 
 }
