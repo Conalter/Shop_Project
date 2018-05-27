@@ -1,11 +1,10 @@
 package db;
 
-import com.sun.tools.javac.jvm.Items;
 import models.Customer;
 import models.Order;
-import models.OrderQuantity;
-import models.ShopStock;
 import models.items.*;
+
+import java.util.List;
 
 public class Seeds {
 
@@ -37,6 +36,12 @@ public class Seeds {
         DBHelper.addItemToOrder(clothing1, order1, 45);
         DBHelper.addItemToOrder(food1, order1, 50);
         DBHelper.addItemToOrder(electronics1, order1, 55);
+
+//        List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
+
+        List<Item> allItems = DBHelper.getAll(Item.class);
+        List<Customer> allCustomers = DBHelper.getAll(Customer.class);
+        List<Order> allOrder = DBHelper.getAll(Order.class);
 
     }
 
