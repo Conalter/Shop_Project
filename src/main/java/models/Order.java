@@ -106,6 +106,13 @@ public class Order {
         updatePrice();
     }
 
+    public void removeItemToOrder(Item item){
+        this.items.remove(item);
+        updatePrice();
+    }
+
+
+
     public void updatePrice(){
         double total = 0;
         for(Item item : items){
