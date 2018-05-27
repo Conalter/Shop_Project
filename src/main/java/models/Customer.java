@@ -84,7 +84,6 @@ public class Customer {
         this.orderHistory = orderHistory;
     }
 
-    //MAPPING REQUIRED BUT NOT SURE HOW TO DO THIS WITH TWO ORDER OBJECTS IN CLASS
     @Transient
     public Order getOrder() {
         return order;

@@ -14,7 +14,6 @@ public class Seeds {
         Customer customer2 = new Customer("Name 2", "username 2", "password 2", 200.00);
         Customer customer3 = new Customer("Name 3", "username 3", "password 3", 300.00);
 
-
         DBHelper.save(customer1);
         DBHelper.save(customer2);
         DBHelper.save(customer3);
@@ -35,25 +34,10 @@ public class Seeds {
         DBHelper.addItemToStock(food1, 5);
         DBHelper.addItemToStock(electronics1, 100);
 
-//        ShopStock stock1 = new ShopStock(clothing1, 10);
-//        ShopStock stock2 = new ShopStock(food1, 5);
-//        ShopStock stock3 = new ShopStock(electronics1, 100);
-
-//        DBHelper.save(stock1);
-//        DBHelper.save(stock2);
-//        DBHelper.save(stock3);
-
         DBHelper.addItemToOrder(clothing1, order1, 45);
         DBHelper.addItemToOrder(food1, order1, 50);
         DBHelper.addItemToOrder(electronics1, order1, 55);
 
-//        OrderQuantity orderQuantity1 = new OrderQuantity(order1, clothing1, 2);
-//        OrderQuantity orderQuantity2 = new OrderQuantity(order1, food1, 2);
-//        OrderQuantity orderQuantity3 = new OrderQuantity(order1, electronics1, 2);
-//
-//        DBHelper.save(orderQuantity1);
-//        DBHelper.save(orderQuantity2);
-//        DBHelper.save(orderQuantity3);
     }
 
 }
