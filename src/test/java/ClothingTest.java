@@ -11,7 +11,7 @@ public class ClothingTest {
 
     @Before
     public void before(){
-        this.clothing = new Clothing("T-Shirt", 20.00, "Plain White T", 30, Size.MEDIUM);
+        this.clothing = new Clothing("T-Shirt", 20.00, "Plain White T", Size.MEDIUM);
     }
 
     @Test
@@ -30,25 +30,8 @@ public class ClothingTest {
     }
 
     @Test
-    public void hasQuantity(){
-        assertEquals(30, clothing.getQuantity());
-    }
-
-    @Test
     public void hasSize(){
         assertEquals(Size.MEDIUM, clothing.getSize());
-    }
-
-    @Test
-    public void increaseQuantity(){
-        clothing.increaseQuantity(5);
-        assertEquals(35, clothing.getQuantity());
-    }
-
-    @Test
-    public void decreaseQuantity(){
-        clothing.decreaseQuantity(5);
-        assertEquals(25, clothing.getQuantity());
     }
 
     @Test

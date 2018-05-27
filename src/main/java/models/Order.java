@@ -5,7 +5,9 @@ import models.items.Item;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -17,7 +19,7 @@ public class Order {
     private double totalPrice;
     private Boolean completeOrder;
     private String date;
-    private OrderQuantity orderQuantity;
+    private Set<OrderQuantity> orderQuantity;
 
     public Order(String date, Customer customer) {
         this.customer = customer;
@@ -25,6 +27,7 @@ public class Order {
         this.totalPrice = 0;
         this.completeOrder = false;
         this.date = date;
+        this.orderQuantity = new HashSet<OrderQuantity>();
     }
 
     public Order() {
@@ -90,12 +93,12 @@ public class Order {
         this.date = date;
     }
 
-    @OneToOne()
-    public OrderQuantity getOrderQuantity() {
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    public Set<OrderQuantity> getOrderQuantity() {
         return orderQuantity;
     }
 
-    public void setOrderQuantity(OrderQuantity orderQuantity) {
+    public void setOrderQuantity(Set<OrderQuantity> orderQuantity) {
         this.orderQuantity = orderQuantity;
     }
 
@@ -109,5 +112,9 @@ public class Order {
 
     public void changeOrderStatusToTrue(){
         this.completeOrder = true;
+    }
+
+    public void addOrderQuantityToOrderQuantity(OrderQuantity orderQuantity){
+        this.orderQuantity.add(orderQuantity);
     }
 }

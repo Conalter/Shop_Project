@@ -33,7 +33,8 @@ public class OrderQuantity {
         this.id = id;
     }
 
-    @OneToOne()
+    @ManyToOne()
+    @JoinColumn(name="order_id", nullable = false)
     public Order getOrder() {
         return order;
     }

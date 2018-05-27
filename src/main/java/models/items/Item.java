@@ -1,6 +1,8 @@
 package models.items;
 
 import models.Order;
+import models.OrderQuantity;
+import models.ShopStock;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -65,15 +67,6 @@ public abstract class Item {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Column(name = "quantity")
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST)
