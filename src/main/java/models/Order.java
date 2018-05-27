@@ -103,6 +103,15 @@ public class Order {
 
     public void addItemToOrder(Item item){
         this.items.add(item);
+        updatePrice();
+    }
+
+    public void updatePrice(){
+        double total = 0;
+        for(Item item : items){
+            total += item.getPrice();
+        }
+        this.totalPrice = total;
     }
 
     public void changeOrderStatusToFalse(){
