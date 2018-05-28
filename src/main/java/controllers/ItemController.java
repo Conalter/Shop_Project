@@ -23,7 +23,7 @@ public class ItemController {
             Map<String, Object> model = new HashMap<>();
             List<Item> items = DBHelper.getAll(Item.class);
             model.put("items", items);
-            model.put("template", "items.vtl");
+            model.put("template", "index.vtl");
             return new ModelAndView(model, "layout.vtl");
         }, new VelocityTemplateEngine());
 

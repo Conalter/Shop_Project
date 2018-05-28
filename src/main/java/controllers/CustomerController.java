@@ -2,7 +2,6 @@ package controllers;
 
 import db.DBHelper;
 import models.Customer;
-import models.items.Item;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -23,8 +22,8 @@ public class CustomerController {
             Map<String, Object> model = new HashMap<>();
             List<Customer> customers = DBHelper.getAll(Customer.class);
             model.put("customers", customers);
-            model.put("template", "customers.vtl");
-            return new ModelAndView(model, "layout.vtl");
+            model.put("template", "templates/customers/index.vtl");
+            return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
     }

@@ -24,7 +24,7 @@ public class OrderController {
             Map<String, Object> model = new HashMap<>();
             List<Order> orders = DBHelper.getAll(Order.class);
             model.put("orders", orders);
-            model.put("template", "orders.vtl");
+            model.put("template", "index.vtl");
             return new ModelAndView(model, "layout.vtl");
         }, new VelocityTemplateEngine());
 
