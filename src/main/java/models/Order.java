@@ -105,11 +105,11 @@ public class Order {
         this.items.add(item);
         double value = item.getPrice() * quantity;
         updatePrice(value);
-
-
     }
 
     public void removeItemToOrder(Item item, int quantity){
+//       Needs to be refactored to deal with removing some of an item from an order but not all of it...
+// currently removes all items from order regardless of quantity entered
         this.items.remove(item);
         double value = item.getPrice() * quantity;
         updatePrice(-value);
