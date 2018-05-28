@@ -36,8 +36,8 @@ public class Seeds {
         DBHelper.addItemToStock(electronics1, 100);
 
         DBHelper.addItemToOrder(clothing1, order1, 45);
-        DBHelper.addItemToOrder(food1, order1, 50);
-        DBHelper.addItemToOrder(electronics1, order1, 55);
+//        DBHelper.addItemToOrder(food1, order1, 50);
+//        DBHelper.addItemToOrder(electronics1, order1, 55);
 
         List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
         List<Order> customer1Orders = DBHelper.listAllOrdersForCustomer(customer1);
