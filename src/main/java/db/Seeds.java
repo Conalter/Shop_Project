@@ -2,6 +2,7 @@ package db;
 
 import models.Customer;
 import models.Order;
+import models.OrderQuantity;
 import models.items.*;
 
 import java.util.List;
@@ -36,20 +37,24 @@ public class Seeds {
         DBHelper.addItemToStock(electronics1, 100);
 
         DBHelper.addItemToOrder(clothing1, order1, 45);
-//        DBHelper.addItemToOrder(food1, order1, 50);
-//        DBHelper.addItemToOrder(electronics1, order1, 55);
-
-        List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
-        List<Order> customer1Orders = DBHelper.listAllOrdersForCustomer(customer1);
-
-        List<Item> allItems = DBHelper.getAll(Item.class);
-        List<Customer> allCustomers = DBHelper.getAll(Customer.class);
-        List<Order> allOrder = DBHelper.getAll(Order.class);
+        DBHelper.addItemToOrder(food1, order1, 50);
+        DBHelper.addItemToOrder(electronics1, order1, 55);
 
 
-        List<Electronics> allElectronicItems = DBHelper.getAll(Electronics.class);
-        List<Food> allFoodItems = DBHelper.getAll(Food.class);
-        List<Clothing> allClothingItems = DBHelper.getAll(Clothing.class);
+//        List<OrderQuantity> orderOneOrderQuantites = DBHelper.listAllOrderQuantitiesForOrder(order1);
+//        OrderQuantity testQuantity = orderOneOrderQuantites.get(0);
+//        Item testitem = DBHelper.showItemForOrderQuantity(testQuantity);
+//        List<Item> itemsInOrder1 = DBHelper.listAllItemsForOrder(order1);
+//
+//        List<Order> customer1Orders = DBHelper.listAllOrdersForCustomer(customer1);
+//
+//        List<Item> allItems = DBHelper.getAll(Item.class);
+//        List<Customer> allCustomers = DBHelper.getAll(Customer.class);
+//        List<Order> allOrder = DBHelper.getAll(Order.class);
+//
+//        List<Electronics> allElectronicItems = DBHelper.getAll(Electronics.class);
+//        List<Food> allFoodItems = DBHelper.getAll(Food.class);
+//        List<Clothing> allClothingItems = DBHelper.getAll(Clothing.class);
 
     }
 

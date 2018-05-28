@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelper {
@@ -94,9 +95,6 @@ public class DBHelper {
     }
 
     public static void addItemToOrder(Item item, Order order, int quantity){
-        item.addOrderToOrders(order);
-        order.addItemToOrder(item, quantity);
-
         OrderQuantity newOrderQuantity = new OrderQuantity(order, item, quantity);
         save(newOrderQuantity);
         item.addOrderQuantityEntry(newOrderQuantity);
@@ -115,20 +113,38 @@ public class DBHelper {
     }
 
     public static List<Item> listAllItemsForOrder(Order order){
+        List<Item> items = new ArrayList<Item>();
+
+        List<OrderQuantity> quantities = listAllOrderQuantitiesForOrder(order);
+
+        for(OrderQuantity quantity : quantities){
+            Item newItem = showItemForOrderQuantity(quantity);
+            items.add(newItem);
+        }
+
+        return items;
+    }
+
+    public static List<OrderQuantity> listAllOrderQuantitiesForOrder(Order order){
         session = HibernateUtil.getSessionFactory().openSession();
-        List<Item> items = null;
+        List<OrderQuantity> orderQuantities = null;
 
         try {
-            Criteria cr = session.createCriteria(Item.class);
-            cr.createAlias("orders", "order");
-            cr.add(Restrictions.eq("order.id", order.getId()));
-            items = cr.list();
+            Criteria cr = session.createCriteria(OrderQuantity.class);
+            cr.add(Restrictions.eq("order", order));
+            orderQuantities = cr.list();
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
             session.close();
         }
-        return items;
+        return orderQuantities;
+    }
+
+    public static Item showItemForOrderQuantity(OrderQuantity orderQuantity){
+
+        Item item = find(orderQuantity.getItem().getId(), Item.class);
+        return item;
     }
 
     public static List<Order> listAllOrdersForCustomer(Customer customer){
