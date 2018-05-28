@@ -4,15 +4,30 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>Description</th>
             <th>Size</th>
+            <th>Details</th>
+            <th>Add to Order</th>
+            <th>Edit Item</th>
+            <th>Delete</th>
         </tr>
         #foreach($item in $clothing)
         <tr>
             <td>$item.getName()</td>
             <td>$item.getPrice()</td>
-            <td>$item.getDescription()</td>
             <td>$item.getSize()</td>
+            <td> <a href="/items/$item.getId()" class="button">View Details</a> </td>
+            <td>
+                <input id="clothingQuantity" type="number">
+                <form action="/items/$item.getId()/addToOrder" method="post">
+                    <input type="submit" value="Add To Order" class="button">
+                </form>
+            </td>
+            <td> <a href="/items/$item.getId()/edit" class="button">Edit</a> </td>
+            <td>
+                <form action="/items/$item.getId()/delete" method="post">
+                    <input type="submit" value="Delete" class="button">
+                </form>
+            </td>
         </tr>
         #end
     </table>
@@ -24,15 +39,30 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>Description</th>
             <th>Voltage</th>
+            <th>Details</th>
+            <th>Add to Order</th>
+            <th>Edit Item</th>
+            <th>Delete</th>
         </tr>
         #foreach($item in $electronics)
         <tr>
             <td>$item.getName()</td>
             <td>$item.getPrice()</td>
-            <td>$item.getDescription()</td>
             <td>$item.getVoltage()</td>
+            <td> <a href="/items/$item.getId()" class="button">View Details</a> </td>
+            <td>
+                <input id="electronicQuantity" type="number">
+                <form action="/items/$item.getId()/addToOrder" method="post">
+                    <input type="submit" value="Add To Order" class="button">
+                </form>
+            </td>
+            <td> <a href="/items/$item.getId()/edit" class="button">Edit</a> </td>
+            <td>
+                <form action="/items/$item.getId()/delete" method="post">
+                    <input type="submit" value="Delete" class="button">
+                </form>
+            </td>
         </tr>
         #end
     </table>
@@ -44,15 +74,30 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>Description</th>
             <th>Best Before</th>
+            <th>Details</th>
+            <th>Add to Order</th>
+            <th>Edit Item</th>
+            <th>Delete</th>
         </tr>
         #foreach($item in $foods)
         <tr>
             <td>$item.getName()</td>
             <td>$item.getPrice()</td>
-            <td>$item.getDescription()</td>
             <td>$item.getDate()</td>
+            <td> <a href="/items/$item.getId()" class="button">View Details</a> </td>
+            <td>
+                <input id="foodQuantity" type="number">
+                <form action="/items/$item.getId()/addToOrder" method="post">
+                    <input type="submit" value="Add To Order" class="button">
+                </form>
+            </td>
+            <td> <a href="/items/$item.getId()/edit" class="button">Edit</a> </td>
+            <td>
+                <form action="/items/$item.getId()/delete" method="post">
+                    <input type="submit" value="Delete" class="button">
+                </form>
+            </td>
         </tr>
         #end
     </table>

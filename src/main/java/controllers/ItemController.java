@@ -22,6 +22,16 @@ public class ItemController {
 
     private void setUpEndpoints(){
 
+        get("/items/:id/edit", (req, res) -> {
+            String strId = req.params(":id");
+            Integer intId = Integer.parseInt(strId);
+            Item item = DBHelper.find(intId, Item.class);
+            Map<String, Object> model = new HashMap<>();;
+            model.put("item", item);
+            model.put("template", "templates/items/edit.vtl");
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, new VelocityTemplateEngine());
+
         get("/items", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Clothing> clothing = DBHelper.getAll(Clothing.class);
@@ -44,6 +54,14 @@ public class ItemController {
 
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
+
+//        get ("/items/new", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            model.put("template", "templates/items/create.vtl");
+//            return new ModelAndView(model, "templates/layout.vtl");
+//        }, new VelocityTemplateEngine());
+
+
 
     }
 
