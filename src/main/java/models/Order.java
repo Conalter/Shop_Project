@@ -1,11 +1,8 @@
 package models;
 
-import models.items.Item;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,7 +11,6 @@ public class Order {
 
     private int id;
     private Customer customer;
-//    private List<Item> items;
     private double totalPrice;
     private Boolean completeOrder;
     private String date;
@@ -22,7 +18,6 @@ public class Order {
 
     public Order(String date, Customer customer) {
         this.customer = customer;
-//        this.items = new ArrayList<Item>();
         this.totalPrice = 0;
         this.completeOrder = false;
         this.date = date;
@@ -52,18 +47,6 @@ public class Order {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-//    @ManyToMany(cascade = CascadeType.PERSIST)
-//    @JoinTable(name = "order_items",
-//            inverseJoinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)},
-//            joinColumns = {@JoinColumn(name = "order_id", nullable = false, updatable = false)})
-//    public List<Item> getItems() {
-//        return items;
-//    }
-//
-//    public void setItems(List<Item> items) {
-//        this.items = items;
-//    }
 
     @Column(name = "total_price")
     public double getTotalPrice() {
@@ -101,27 +84,9 @@ public class Order {
         this.orderQuantity = orderQuantity;
     }
 
-//    public void addItemToOrder(Item item, int quantity){
-//        this.items.add(item);
-//        double value = item.getPrice() * quantity;
-//        updatePrice(value);
-//    }
-
-//    public void removeItemToOrder(Item item, int quantity){
-////       Needs to be refactored to deal with removing some of an item from an order but not all of it...
-//// currently removes all items from order regardless of quantity entered
-//        this.items.remove(item);
-//        double value = item.getPrice() * quantity;
-//        updatePrice(-value);
-//    }
-
     public void updatePrice(double value){
         this.totalPrice += value;
     }
-
-//    public int numberOfItemsInOrder(){
-//        return this.items.size();
-//    }
 
     public void changeOrderStatusToFalse(){
             this.completeOrder = false;

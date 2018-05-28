@@ -1,6 +1,5 @@
 package models.items;
 
-import models.Order;
 import models.OrderQuantity;
 import models.ShopStock;
 
@@ -70,18 +69,6 @@ public abstract class Item {
         this.description = description;
     }
 
-//    @ManyToMany(cascade = CascadeType.PERSIST)
-//    @JoinTable(name = "order_items",
-//            joinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)},
-//            inverseJoinColumns = {@JoinColumn(name = "order_id", nullable = false, updatable = false)})
-//    public List<Order> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(List<Order> orders) {
-//        this.orders = orders;
-//    }
-
     @OneToOne()
     public ShopStock getStock() {
         return stock;
@@ -109,9 +96,6 @@ public abstract class Item {
         this.pictureLink = pictureLink;
     }
 
-//    public void addOrderToOrders(Order order){
-//        this.orders.add(order);
-//    }
 
     public void addOrderQuantityEntry(OrderQuantity orderQuantity){
         this.orderQuantities.add(orderQuantity);
