@@ -1,0 +1,21 @@
+<p class = "pageHeader"> Customers</p>
+
+<div class=" container">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Money</th>
+        </tr>
+        #foreach($customer in  $customers)
+        <tr>
+            <td>$customer.getName()</td>
+            <td>$customer.getUsername()</td>
+            <td>$customer.getPassword()</td>
+            <td>$customer.getMoney()</td>
+        </tr>
+        #end
+    </table>
+</div>
+
