@@ -17,7 +17,7 @@ import static spark.Spark.get;
 public class MainController {
 
     public static void main(String[] args) {
-//        Seeds.seedData();
+        Seeds.seedData();
         staticFileLocation("/public");
 
         CustomerController customerController = new CustomerController();
