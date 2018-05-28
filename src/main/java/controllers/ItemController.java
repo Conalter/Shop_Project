@@ -1,6 +1,9 @@
 package controllers;
 
 import db.DBHelper;
+import models.items.Clothing;
+import models.items.Electronics;
+import models.items.Food;
 import models.items.Item;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -21,10 +24,25 @@ public class ItemController {
 
         get("/items", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Item> items = DBHelper.getAll(Item.class);
-            model.put("items", items);
-            model.put("template", "index.vtl");
-            return new ModelAndView(model, "layout.vtl");
+            List<Clothing> clothing = DBHelper.getAll(Clothing.class);
+            List<Electronics> electronics = DBHelper.getAll(Electronics.class);
+            List<Food> foods = DBHelper.getAll(Food.class);
+            model.put("clothing", clothing);
+            model.put("foods", foods);
+            model.put("electronics", electronics);
+            model.put("template", "templates/items/index.vtl");
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, new VelocityTemplateEngine());
+
+        get("/items/:id", (req, res) -> {
+            String strId = req.params(":id");
+            Integer intId = Integer.parseInt(strId);
+            Item item = DBHelper.find(intId, Item.class);
+            Map<String, Object> model = new HashMap<>();
+            model.put("item", item);
+            model.put("template", "templates/items/show.vtl");
+
+            return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
     }

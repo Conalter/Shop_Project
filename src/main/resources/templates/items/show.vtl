@@ -1,0 +1,13 @@
+<div>
+    <p> Name: $item.getName()</p>
+    <p> Price: $item.getPrice()</p>
+    <p> Description: $item.getDescription()</p>
+    <a href="$item.pictureLink()"/>
+
+</div>
+
+<a href="/items/$item.getId()/edit" class="button center">Edit</a>
+<form action="/items/$item.getId()/delete" method="post">
+    <input type="submit" value="Delete" class="button center">
+</form>
+<a href="/items" class="button center">All Items</a>

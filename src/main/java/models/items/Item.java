@@ -100,4 +100,10 @@ public abstract class Item {
     public void addOrderQuantityEntry(OrderQuantity orderQuantity){
         this.orderQuantities.add(orderQuantity);
     }
+
+    public String itemType(){
+        String result = this.getClass().toString();
+        result = result.substring(result.lastIndexOf(".") + 1);
+        return  result;
+    }
 }
