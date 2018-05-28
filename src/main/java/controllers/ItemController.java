@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class ItemController {
 
@@ -53,6 +54,18 @@ public class ItemController {
             model.put("template", "templates/items/show.vtl");
 
             return new ModelAndView(model, "templates/layout.vtl");
+        }, new VelocityTemplateEngine());
+
+
+//        Delete causing problems, cant delete item as this violates foreign key constrains to orderQuantity
+//        possibly need to update the cascade type somewhere but unsure - Consult with instructor?
+//        Aslo raises issue that deleting an item will mean it appears in no order histories also ?
+        post ("/items/:id/delete", (req, res) -> {
+            int id = Integer.parseInt(req.params(":id"));
+            Item itemToDelete = DBHelper.find(id, Item.class);
+            DBHelper.delete(itemToDelete);
+            res.redirect("/items");
+            return null;
         }, new VelocityTemplateEngine());
 
 //        get ("/items/new", (req, res) -> {
