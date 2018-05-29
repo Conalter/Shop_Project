@@ -1,8 +1,7 @@
 
 
 body {
-    /*background-color : green;*/
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
     align : center;
 
 }
@@ -48,13 +47,13 @@ input {
 
 
 th, td {
-    padding: 15px;
+    padding: 20px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 3px solid #ddd;
 }
 
 .pageHeader {
-    font: bold 2.0em Arial;
+    font: bold 4.0em Arial;
     text-align: center;
     color: blue;
 }
