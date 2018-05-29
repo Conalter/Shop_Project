@@ -72,6 +72,51 @@ public class CustomerController {
         return new ModelAndView(model, "templates/layout.vtl");
     }, new VelocityTemplateEngine());
 
+    post("/customer/:id", (req,res) -> {
+        String strId = req.params(":id");
+        Integer intId = Integer.parseInt(strId);
+        Customer customer = DBHelper.find(intId, Customer.class);
+
+        String name = req.queryParams("name");
+        String username = req.queryParams("username");
+        String password = req.queryParams("password");
+        double money = Double.parseDouble(req.queryParams("money"));
+
+        customer.setName(name);
+        customer.setUsername(username);
+        customer.setPassword(password);
+        customer.setMoney(money);
+
+        Map<String, Object> model = new HashMap<>();
+
+        DBHelper.save(customer);
+        res.redirect("/customers");
+        return null;
+    }, new VelocityTemplateEngine());
+
     }
 }
 
+//    post ("/items/:id", (req, res) -> {
+//        String strId = req.params(":id");
+//        Integer intId = Integer.parseInt(strId);
+//        Item item = DBHelper.find(intId, Item.class);
+//
+//        String name = req.queryParams("name");
+//        double price = Double.parseDouble(req.queryParams("price"));
+//        String description = req.queryParams("description");
+//        String pictureLink = req.queryParams("picture_link");
+//        int quantity = Integer.parseInt((req.queryParams("quantity")));
+//
+//        item.setName(name);
+//        item.setPrice(price);
+//        item.setDescription(description);
+//        item.setPictureLink(pictureLink);
+//
+//        ShopStock stock = item.getStock();
+//        stock.setQuantity(quantity);
+//
+//        DBHelper.save(stock);
+//        DBHelper.save(item);
+//        res.redirect("/items");
+//        return null;
