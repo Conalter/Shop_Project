@@ -6,6 +6,7 @@ import models.items.*;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,12 @@ public class ItemController {
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
             Item item = DBHelper.find(intId, Item.class);
-            Map<String, Object> model = new HashMap<>();;
+            Map<String, Object> model = new HashMap<>();
+
+            ArrayList<String> sizes = Clothing.sizesAsString();
+
             model.put("item", item);
+            model.put("sizes", sizes);
             model.put("template", "templates/items/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
@@ -101,8 +106,8 @@ public class ItemController {
                 case "Clothing":
                     String size = req.queryParams("size");
                     Clothing clothing = (Clothing)item;
-//                    clothing.setSize(size);
-                    clothing.setSize(Size.LARGE);
+                    Size option = Size.valueOf(size);
+                    clothing.setSize(option);
                     break;
             }
 

@@ -10,7 +10,11 @@
 
     #if($item.itemType() == "Clothing")
     <label for="size">Size:</label>
-    <input class="inputBox" type="text" name="size" required = "true" value="$item.getSize()" id = "size">
+    <select name ="size" id = size">
+        #foreach($size in $sizes)
+        <option value="$size" id = "size" name = "size">$size</option>
+        #end
+    </select>
     #end
 
     #if($item.itemType() == "Food")
