@@ -52,6 +52,15 @@ public class CustomerController {
             }, new VelocityTemplateEngine());
 
 
+    get("/customers/new", (req,res) -> {
+        HashMap<String, Object> model = new HashMap<>();
+        model.put("template", "create.vtl");
+
+        return new ModelAndView(model, "layout.vtl");
+    }, new VelocityTemplateEngine());
+
+
+    get("/customer/:id/edit ")
 
     }
 }
