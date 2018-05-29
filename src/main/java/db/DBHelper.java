@@ -99,6 +99,7 @@ public class DBHelper {
         save(newOrderQuantity);
         item.addOrderQuantityEntry(newOrderQuantity);
         order.addOrderQuantityToOrderQuantity(newOrderQuantity);
+        order.updatePrice(item.getPrice(), quantity);
 
         save(order);
         save(item);
@@ -110,16 +111,6 @@ public class DBHelper {
         item.setStock(newStock);
         save(item);
 
-    }
-
-    public int getTotalItemsInOrder(Order order){
-        int total = 0;
-        List<OrderQuantity> quantities = listAllOrderQuantitiesForOrder(order);
-
-        for(OrderQuantity quantity : quantities){
-            total += quantity.getQuantity();
-        }
-        return total;
     }
 
     public static List<Item> listAllItemsForOrder(Order order){
