@@ -113,17 +113,13 @@ public class DBHelper {
     }
 
     public int getTotalItemsInOrder(Order order){
-
         int total = 0;
-
         List<OrderQuantity> quantities = listAllOrderQuantitiesForOrder(order);
 
         for(OrderQuantity quantity : quantities){
             total += quantity.getQuantity();
         }
-
         return total;
-
     }
 
     public static List<Item> listAllItemsForOrder(Order order){
