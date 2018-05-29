@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class CustomerController {
 
@@ -28,16 +29,30 @@ public class CustomerController {
         }, new VelocityTemplateEngine());
 
 
-    get("/customer/:id", (req, res) -> {
+    get("/customers/:id", (req, res) -> {
         String strId = req.params(":id");
         Integer intId = Integer.parseInt(strId);
         Customer customer = DBHelper.find(intId, Customer.class);
+        List<Order> orders = DBHelper.listAllOrdersForCustomer(customer);
         Map<String, Object> model = new HashMap<>();
         model.put("customer", customer);
-        model.put("templates", "templates/customers/show.vtl");
+        model.put("orders", orders);
+        model.put("template", "templates/customers/show.vtl");
 
         return new ModelAndView(model,"templates/layout.vtl");
     }, new VelocityTemplateEngine());
-}
+
+
+    post ("/customers/:id/delete", (req, res) -> {
+            int id = Integer.parseInt(req.params(":id"));
+            Customer customerToDelete = DBHelper.find(id, Customer.class);
+            DBHelper.delete(customerToDelete);
+            res.redirect("/customers");
+            return null;
+            }, new VelocityTemplateEngine());
+
+
+
+    }
 }
 
