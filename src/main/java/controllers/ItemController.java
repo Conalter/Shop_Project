@@ -154,7 +154,6 @@ public class ItemController {
                 Clothing newClothing = new Clothing(name, price, description, option, pictureLink);
                 DBHelper.save(newClothing);
                 DBHelper.addItemToStock(newClothing, quantity);
-
                 break;
         }
 
