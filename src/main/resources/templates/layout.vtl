@@ -9,6 +9,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    #if($isLoggedIn)
+    <p>Logged in Customer: $user</p>
+    #else
+    <p>No User is logged in</p>
+    #end
+
+
+    <a href="/customers" class="button center">Cancel</a>
 </head>
 <body>
 

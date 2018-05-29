@@ -23,9 +23,10 @@
                 <a href="/customers/$customer.getId()" class="button">Show</a>
             </td>
             <td>
-                <a href="/login/$customer.getUsername()" class="button">Login</a>
+                <form action="/login/$customer.getId()" method="post">
+                    <input type="submit" value="Login" class="button">
+                </form>
             </td>
-
         </tr>
         #end
     </table>
