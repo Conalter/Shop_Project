@@ -27,9 +27,7 @@ public class ItemController {
             Integer intId = Integer.parseInt(strId);
             Item item = DBHelper.find(intId, Item.class);
             Map<String, Object> model = new HashMap<>();
-
             ArrayList<String> sizes = Clothing.sizesAsString();
-
             model.put("item", item);
             model.put("sizes", sizes);
             model.put("template", "templates/items/edit.vtl");
@@ -41,6 +39,8 @@ public class ItemController {
             List<Clothing> clothing = DBHelper.getAll(Clothing.class);
             List<Electronics> electronics = DBHelper.getAll(Electronics.class);
             List<Food> foods = DBHelper.getAll(Food.class);
+            List<String> type = Item.allItemTypes();
+            model.put("itemType", type);
             model.put("clothing", clothing);
             model.put("foods", foods);
             model.put("electronics", electronics);
@@ -62,6 +62,16 @@ public class ItemController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
+        post ("/items/new", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            String itemType = req.queryParams("type");
+            ArrayList<String> sizes = Clothing.sizesAsString();
+            model.put("itemType", itemType);
+            model.put("sizes", sizes);
+            model.put("template", "templates/items/create.vtl");
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, new VelocityTemplateEngine());
+
         post ("/items/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Item itemToDelete = DBHelper.find(id, Item.class);
@@ -69,12 +79,6 @@ public class ItemController {
             res.redirect("/items");
             return null;
         }, new VelocityTemplateEngine());
-
-//        get ("/items/new", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            model.put("template", "templates/items/create.vtl");
-//            return new ModelAndView(model, "templates/layout.vtl");
-//        }, new VelocityTemplateEngine());
 
         post ("/items/:id", (req, res) -> {
             String strId = req.params(":id");
@@ -120,6 +124,47 @@ public class ItemController {
             return null;
 
         }, new VelocityTemplateEngine());
+
+
+    post ("/items", (req, res) -> {
+
+        String name = req.queryParams("name");
+        double price = Double.parseDouble(req.queryParams("price"));
+        String description = req.queryParams("description");
+        String pictureLink = req.queryParams("pictureLink");
+        int quantity = Integer.parseInt((req.queryParams("quantity")));
+        String type = req.queryParams("itemType");
+
+        switch (type) {
+            case "Food":
+                String date = req.queryParams("date");
+                Food newFood = new Food(name, price, description, date, pictureLink);
+                ShopStock newFoodStock = new ShopStock(newFood, quantity);
+                DBHelper.save(newFood);
+                DBHelper.save(newFoodStock);
+                break;
+            case "Electronic":
+                String voltage = req.queryParams("voltage");
+                Electronics newElectronic = new Electronics(name, price, description, voltage, pictureLink);
+                ShopStock newElectronicStock = new ShopStock(newElectronic, quantity);
+                DBHelper.save(newElectronic);
+                DBHelper.save(newElectronicStock);
+                break;
+            case "Clothing":
+                String size = req.queryParams("size");
+                Size option = Size.valueOf(size);
+                Clothing newClothing = new Clothing(name, price, description, option, pictureLink);
+                ShopStock newClothingStock = new ShopStock(newClothing, quantity);
+                DBHelper.save(newClothing);
+                DBHelper.save(newClothingStock);
+                break;
+        }
+
+        res.redirect("/items");
+        return null;
+
+    }, new VelocityTemplateEngine());
+
     }
 
 }

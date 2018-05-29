@@ -1,0 +1,45 @@
+<p class ="pageHeader">New Item</p>
+
+<form action="/items" method="post">
+
+    <label for="itemType">Type:</label>
+    <input class="inputBox" type="text" name="itemType" required = "true" id = "itemType" value="$itemType" disabled>
+
+    <label for="name">Name:</label>
+    <input class="inputBox" type="text" name="name" required = "true" id = "name">
+
+    <label for="price">Price:</label>
+    <input class="inputBox" type="number" name="price" required = "true" id = "price">
+
+    #if($itemType == "Clothing")
+    <label for="size">Size:</label>
+    <select name ="size" id = "size">
+        #foreach($size in $sizes)
+        <option value="$size">$size</option>
+        #end
+    </select>
+    #end
+
+    #if($itemType == "Food")
+    <label for="date">Best Before Date:</label>
+    <input class="inputBox" type="text" name="date" required = "true"id = "date">
+    #end
+
+    #if($itemType == "Electronics")
+    <label for="voltage">Voltage Rating:</label>
+    <input class="inputBox" type="text" name="voltage" required = "true" id = "voltage">
+    #end
+
+    <label for="description">Description:</label>
+    <input class="inputBox" type="text" name="description" required = "true" id = "description">
+
+    <label for="pictureLink">Picture Link:</label>
+    <input class="inputBox" type="text" name="pictureLink" required = "true" id = "pictureLink">
+
+    <label for="quantity">Quantity:</label>
+    <input class="inputBox" type="number" name="quantity" required = "true" id = "quantity">
+
+    <input type="submit" value="Save" class="button">
+</form>
+
+<a href="/items" class="button center">Cancel</a>

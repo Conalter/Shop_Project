@@ -1,3 +1,16 @@
+<form action="/items/new" method="post">
+
+    <label for="type">Item Type:</label>
+    <select name ="type" id = "type">
+        #foreach($type in $itemType)
+        <option value="$type">$type</option>
+        #end
+    </select>
+
+    <input type="submit" value="New Item" class="button">
+</form>
+
+
 <div class=" container">
     <p>Clothing</p>
     <table>

@@ -1,5 +1,6 @@
 package models.items;
 
+import db.DBHelper;
 import models.OrderQuantity;
 import models.ShopStock;
 
@@ -107,7 +108,23 @@ public abstract class Item {
         return  result;
     }
 
+    public static ArrayList<String> allItemTypes(){
+        List<Item> allItems = DBHelper.getAll(Item.class);
+        ArrayList<String> allItemClasses = new ArrayList<>();
+
+        for (Item item : allItems){
+            String itemclass = item.itemType();
+            if(!allItemClasses.contains(itemclass)){
+                allItemClasses.add(itemclass);
+            }
+
+        }
+        return allItemClasses;
+    }
+
     public int returnQuantity(){
         return this.stock.getQuantity();
     }
+
+
 }
