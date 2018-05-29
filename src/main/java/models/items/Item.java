@@ -69,7 +69,7 @@ public abstract class Item {
         this.description = description;
     }
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     public ShopStock getStock() {
         return stock;
     }
@@ -78,7 +78,7 @@ public abstract class Item {
         this.stock = stock;
     }
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<OrderQuantity> getOrderQuantities() {
         return orderQuantities;
     }
@@ -105,5 +105,9 @@ public abstract class Item {
         String result = this.getClass().toString();
         result = result.substring(result.lastIndexOf(".") + 1);
         return  result;
+    }
+
+    public int returnQuantity(){
+        return this.stock.getQuantity();
     }
 }
