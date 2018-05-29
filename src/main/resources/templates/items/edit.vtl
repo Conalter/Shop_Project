@@ -1,0 +1,34 @@
+<p class = "pageHeader">Edit Item</p>
+
+<form action="/items/$item.getId()" method="post">
+
+    <label for="name">Name:</label>
+    <input class="inputBox" type="text" name="name" required = "true" value="$item.getName()" id = "name">
+
+    <label for="price">Price:</label>
+    <input class="inputBox" type="number" name="price" required = "true" value="$item.getPrice()" id = "price">
+
+    #if($item.itemType() == "Clothing")
+    <label for="size">Size:</label>
+    <input class="inputBox" type="text" name="size" required = "true" value="$item.getSize()" id = "size">
+    #end
+
+    #if($item.itemType() == "Food")
+    <label for="date">Best Before Date:</label>
+    <input class="inputBox" type="text" name="date" required = "true" value="$item.getDate()" id = "date">
+    #end
+
+    #if($item.itemType() == "Electronics")
+    <label for="voltage">Voltage Rating:</label>
+    <input class="inputBox" type="text" name="voltage" required = "true" value="$item.getVoltage()" id = "voltage">
+    #end
+
+    <label for="description">Description:</label>
+    <input class="inputBox" type="text" name="description" required = "true" value="$item.getDescription()" id = "description">
+
+    <label for="pictureLink">Picture Link:</label>
+    <input class="inputBox" type="text" name="pictureLink" required = "true" value="$item.getPictureLink()" id = "pictureLink">
+
+
+
+</form>

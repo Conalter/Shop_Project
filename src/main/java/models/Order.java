@@ -1,8 +1,11 @@
 package models;
 
 
+import db.DBHelper;
+
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -84,8 +87,8 @@ public class Order {
         this.orderQuantity = orderQuantity;
     }
 
-    public void updatePrice(double value){
-        this.totalPrice += value;
+    public void updatePrice(double price, int quantity){
+        this.totalPrice += (price * quantity);
     }
 
     public void changeOrderStatusToFalse(){
@@ -98,5 +101,15 @@ public class Order {
 
     public void addOrderQuantityToOrderQuantity(OrderQuantity orderQuantity){
         this.orderQuantity.add(orderQuantity);
+    }
+
+    public int getTotalItemsInOrder(Order order){
+        int total = 0;
+        List<OrderQuantity> quantities = DBHelper.listAllOrderQuantitiesForOrder(order);
+
+        for(OrderQuantity quantity : quantities){
+            total += quantity.getQuantity();
+        }
+        return total;
     }
 }
