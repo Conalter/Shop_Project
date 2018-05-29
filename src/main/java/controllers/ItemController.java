@@ -133,30 +133,28 @@ public class ItemController {
         String description = req.queryParams("description");
         String pictureLink = req.queryParams("pictureLink");
         int quantity = Integer.parseInt((req.queryParams("quantity")));
-        String type = req.queryParams("itemType");
+        String itemClass = req.queryParams("type");
 
-        switch (type) {
+        switch (itemClass) {
             case "Food":
                 String date = req.queryParams("date");
                 Food newFood = new Food(name, price, description, date, pictureLink);
-                ShopStock newFoodStock = new ShopStock(newFood, quantity);
                 DBHelper.save(newFood);
-                DBHelper.save(newFoodStock);
+                DBHelper.addItemToStock(newFood, quantity);
                 break;
-            case "Electronic":
+            case "Electronics":
                 String voltage = req.queryParams("voltage");
                 Electronics newElectronic = new Electronics(name, price, description, voltage, pictureLink);
-                ShopStock newElectronicStock = new ShopStock(newElectronic, quantity);
                 DBHelper.save(newElectronic);
-                DBHelper.save(newElectronicStock);
+                DBHelper.addItemToStock(newElectronic, quantity);
                 break;
             case "Clothing":
                 String size = req.queryParams("size");
                 Size option = Size.valueOf(size);
                 Clothing newClothing = new Clothing(name, price, description, option, pictureLink);
-                ShopStock newClothingStock = new ShopStock(newClothing, quantity);
                 DBHelper.save(newClothing);
-                DBHelper.save(newClothingStock);
+                DBHelper.addItemToStock(newClothing, quantity);
+
                 break;
         }
 
