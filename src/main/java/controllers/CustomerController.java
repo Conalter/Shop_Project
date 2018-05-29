@@ -9,6 +9,7 @@ import spark.template.velocity.VelocityTemplateEngine;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -60,7 +61,16 @@ public class CustomerController {
     }, new VelocityTemplateEngine());
 
 
-    get("/customer/:id/edit ")
+    get("/customer/:id/edit", (req,res) -> {
+        Map<String, Object> model = new HashMap<>();
+        String strId = req.params(":id");
+        Integer intId = Integer.parseInt(strId);
+        Customer customer = DBHelper.find(intId, Customer.class);
+        model.put("customer", customer);
+        model.put("template", "templates/customers/edit.vtl");
+
+        return new ModelAndView(model, "templates/layout.vtl");
+    }, new VelocityTemplateEngine());
 
     }
 }
