@@ -12,7 +12,11 @@
     <label for="size">Size:</label>
     <select name ="size" id = "size">
         #foreach($size in $sizes)
+        #if($item.getSize() == $size)
+        <option value="$size" selected>$size</option>
+        #else
         <option value="$size">$size</option>
+        #end
         #end
     </select>
     #end
