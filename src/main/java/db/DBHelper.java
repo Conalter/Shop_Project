@@ -112,6 +112,20 @@ public class DBHelper {
 
     }
 
+    public int getTotalItemsInOrder(Order order){
+
+        int total = 0;
+
+        List<OrderQuantity> quantities = listAllOrderQuantitiesForOrder(order);
+
+        for(OrderQuantity quantity : quantities){
+            total += quantity.getQuantity();
+        }
+
+        return total;
+
+    }
+
     public static List<Item> listAllItemsForOrder(Order order){
         List<Item> items = new ArrayList<Item>();
 
@@ -121,7 +135,6 @@ public class DBHelper {
             Item newItem = showItemForOrderQuantity(quantity);
             items.add(newItem);
         }
-
         return items;
     }
 
