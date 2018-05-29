@@ -10,9 +10,9 @@
 
     #if($item.itemType() == "Clothing")
     <label for="size">Size:</label>
-    <select name ="size" id = size">
+    <select name ="size" id = "size">
         #foreach($size in $sizes)
-        <option value="$size" id = "size" name = "size">$size</option>
+        <option value="$size">$size</option>
         #end
     </select>
     #end
