@@ -7,6 +7,9 @@
             <form action="/customers/$customer.getId()/delete" method="post">
                 <input type="submit" value="Delete" class="button">
             </form>
+            <form action="/customer/$customer.getId()/edit" mrthod="post">
+                <input type="submit" value="Edit" class="button">
+            </form>
         </td>
 
         <tr>
@@ -38,7 +41,7 @@
                 <td>$order.getTotalPrice()</td>
                 <td>$order.getCompleteOrder()</td>
                 <td>$order.getDate()</td>
-                <td>$order.getTotalItemsInOrder()</td>
+                <td>$order.totalItemsInOrder()</td>
                 <td><a href="/orders/$order.getId()" class = "button"> Show Details</a></td>
             </tr>
 
