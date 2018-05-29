@@ -2,6 +2,7 @@ package controllers;
 
 import db.DBHelper;
 import models.Customer;
+import models.Order;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -26,6 +27,17 @@ public class CustomerController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
-    }
+
+    get("/customer/:id", (req, res) -> {
+        String strId = req.params(":id");
+        Integer intId = Integer.parseInt(strId);
+        Customer customer = DBHelper.find(intId, Customer.class);
+        Map<String, Object> model = new HashMap<>();
+        model.put("customer", customer);
+        model.put("templates", "templates/customers/show.vtl");
+
+        return new ModelAndView(model,"templates/layout.vtl");
+    }, new VelocityTemplateEngine());
+}
 }
 
