@@ -100,7 +100,6 @@ public class DBHelper {
         item.addOrderQuantityEntry(newOrderQuantity);
         order.addOrderQuantityToOrderQuantity(newOrderQuantity);
         order.updatePrice(item.getPrice(), quantity);
-
         save(order);
         save(item);
     }
