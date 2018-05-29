@@ -103,7 +103,7 @@ public class Order {
         this.orderQuantity.add(orderQuantity);
     }
 
-    public int getTotalItemsInOrder(){
+    public int TotalItemsInOrder(){
         int total = 0;
         List<OrderQuantity> quantities = DBHelper.listAllOrderQuantitiesForOrder(this);
 
