@@ -2,10 +2,7 @@ package controllers;
 
 import db.DBHelper;
 import models.ShopStock;
-import models.items.Clothing;
-import models.items.Electronics;
-import models.items.Food;
-import models.items.Item;
+import models.items.*;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -60,10 +57,6 @@ public class ItemController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
-
-//        Delete causing problems, cant delete item as this violates foreign key constrains to orderQuantity
-//        possibly need to update the cascade type somewhere but unsure - Consult with instructor?
-//        Aslo raises issue that deleting an item will mean it appears in no order histories also ?
         post ("/items/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Item itemToDelete = DBHelper.find(id, Item.class);
@@ -93,6 +86,25 @@ public class ItemController {
             item.setPrice(price);
             item.setDescription(description);
             item.setPictureLink(pictureLink);
+
+            switch (item.itemType()) {
+                case "Food":
+                    String date = req.queryParams("date");
+                    Food food = (Food)item;
+                    food.setDate(date);
+                    break;
+                case "Electronic":
+                    String voltage = req.queryParams("voltage");
+                    Electronics electronics = (Electronics) item;
+                    electronics.setVoltage(voltage);
+                    break;
+                case "Clothing":
+                    String size = req.queryParams("size");
+                    Clothing clothing = (Clothing)item;
+//                    clothing.setSize(size);
+                    clothing.setSize(Size.LARGE);
+                    break;
+            }
 
             ShopStock stock = item.getStock();
             stock.setQuantity(quantity);
