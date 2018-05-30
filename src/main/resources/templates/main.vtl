@@ -1,6 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <style>
+  .grid-container {
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: 50px 50px 50px;
+  grid-gap: 10px;
+  background-color: #F26F6F;
+  padding: 10px;
+}
+</style>
 
 </head>
 <body>
@@ -11,10 +21,10 @@
 
 
 <div class="grid-container" >
-<a href="/customers" class="button">Customers</a>
+<div><a href="/customers" class="button">Customers</a></div>
 
-<a href="/orders" class="button">Orders</a>
+<div><a href="/orders" class="button">Orders</a></div>
 
-<a href="/items" class="button">Items</a>
+<div><a href="/items" class="button">Items</a></div>
 </div>
 </body>

@@ -1,8 +1,4 @@
 
-head{
-
-}
-
 body {
 
     font-family: Helvetica, Verdana, Arial, sans-serif;
@@ -84,7 +80,7 @@ th, td {
 .pageHeader {
     font: bold 4.0em Arial;
     text-align: center;
-    color: blue;
+    color: #F26F6F;
 }
 
 .button {
