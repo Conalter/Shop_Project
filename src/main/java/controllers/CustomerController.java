@@ -28,11 +28,7 @@ public class CustomerController {
 
             List<Customer> customers = DBHelper.getAll(Customer.class);
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+            LoginController.setupLoginInfo(model, req, res);
 
             model.put("customers", customers);
             model.put("template", "templates/customers/index.vtl");
@@ -43,11 +39,7 @@ public class CustomerController {
         get("/customers/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+            LoginController.setupLoginInfo(model, req, res);
 
             model.put("template", "templates/customers/create.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
@@ -56,11 +48,7 @@ public class CustomerController {
         get("/customers/:id/order", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+            LoginController.setupLoginInfo(model, req, res);
 
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(id, Customer.class);
@@ -79,11 +67,7 @@ public class CustomerController {
         get("/customers/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+            LoginController.setupLoginInfo(model, req, res);
 
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
@@ -101,11 +85,7 @@ public class CustomerController {
         get("/customer/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+            LoginController.setupLoginInfo(model, req, res);
 
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
@@ -119,11 +99,7 @@ public class CustomerController {
         post("/customer/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("user", loggedInUser);
-            model.put("isLoggedIn", isLoggedIn);
+            LoginController.setupLoginInfo(model, req, res);
 
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
@@ -155,11 +131,7 @@ public class CustomerController {
         post("/customer", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("user", loggedInUser);
-            model.put("isLoggedIn", isLoggedIn);
+            LoginController.setupLoginInfo(model, req, res);
 
             String name = req.queryParams("name");
             String username = req.queryParams("username");
