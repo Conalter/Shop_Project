@@ -1,0 +1,34 @@
+<p class = "pageHeader"> Customers</p>
+
+<div class=" container">
+    <table>
+        <a href="/customers/new" class="button">
+            New Customer
+        </a>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Money</th>
+            <th>Show</th>
+            <th>Login</th>
+        </tr>
+        #foreach($customer in  $customers)
+        <tr>
+            <td>$customer.getName()</td>
+            <td>$customer.getUsername()</td>
+            <td>$customer.getPassword()</td>
+            <td>$customer.getMoney()</td>
+            <td>
+                <a href="/customers/$customer.getId()" class="button">Show</a>
+            </td>
+            <td>
+                <form action="/login/$customer.getId()" method="post">
+                    <input type="submit" value="Login" class="button">
+                </form>
+            </td>
+        </tr>
+        #end
+    </table>
+</div>
+

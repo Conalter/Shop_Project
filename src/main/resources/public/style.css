@@ -1,0 +1,97 @@
+
+body {
+
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+    align : center;
+    background: #FF8C1A;
+
+}
+
+
+.rainbow {
+ -webkit-animation: rainbow 3s infinite;
+ font-family: Helvetica;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-size: 72px;
+  padding-top: 30px;
+  margin: 2px;
+  text-decoration: none;
+}
+
+@-webkit-keyframes rainbow{
+ 25%{color: #FF8C1A;}
+ 50%{color: #00ff00;}
+ 50%{colour: #ffffff;}
+ 75%{color: #ff0000;}
+ 100%{colour: #ffffff;}
+}
+    text-align: center;
+    color: yellow;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 80px 200px auto 40px;
+}
+
+.center {
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.table {
+  min-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.centered {
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formItem {
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.inputbox {
+    font: 0.8em Arial;
+    width : 40%;
+}
+
+input {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+
+th, td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 3px solid #ddd;
+}
+
+.pageHeader {
+    font: bold 4.0em Arial;
+    text-align: center;
+    color: #F26F6F;
+}
+
+.button {
+  font: bold 0.8em Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  margin: 0 auto;
+}

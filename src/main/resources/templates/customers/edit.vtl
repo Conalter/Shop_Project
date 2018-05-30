@@ -1,0 +1,18 @@
+<p class="pageHeader">Edit Customer</p>
+
+<form action="/customer/$customer.getId()" method="post">
+    <label for="name">Set Name:</label>
+    <input class="inputbox" type="text" name="name" required="true" value="$customer.getName()" id="name">
+
+    <label for="username"> Set Username:</label>
+    <input class=inputbox" type="text" name="username" required="true" value="$customer.getUsername()" id="username">
+
+    <label for="password"> Set Password:</label>
+    <input class="inputbox" type="test" name="password" required="true" value="$customer.getPassword()" id="password">
+
+    <label for="money"> Set Money:</label>
+    <input class="inputbox" type="number" name="money" required="true" value="$customer.getMoney()" id="money">
+
+    <input type="submit" value="Save" class="button">
+</form>
+<a href="/customer/$customer.getId()" class="button center">Cancel</a>

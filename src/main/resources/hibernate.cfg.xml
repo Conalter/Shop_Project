@@ -19,5 +19,7 @@
         <mapping class = "models.items.Food"/>
         <mapping class = "models.items.Electronics"/>
         <mapping class = "models.items.Clothing"/>
+        <mapping class = "models.OrderQuantity"></mapping>
+        <mapping class = "models.ShopStock"></mapping>
     </session-factory>
 </hibernate-configuration>

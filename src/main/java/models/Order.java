@@ -1,8 +1,12 @@
 package models;
 
-import com.sun.tools.javac.jvm.Items;
+
+import db.DBHelper;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -10,18 +14,17 @@ public class Order {
 
     private int id;
     private Customer customer;
-    private Items items;
     private double totalPrice;
     private Boolean completeOrder;
     private String date;
+    private Set<OrderQuantity> orderQuantity;
 
-    public Order(int id, Customer customer, Items items, double totalPrice, Boolean completeOrder, String date) {
-        this.id = id;
+    public Order(String date, Customer customer) {
         this.customer = customer;
-        this.items = items;
-        this.totalPrice = totalPrice;
-        this.completeOrder = completeOrder;
+        this.totalPrice = 0;
+        this.completeOrder = false;
         this.date = date;
+        this.orderQuantity = new HashSet<OrderQuantity>();
     }
 
     public Order() {
@@ -38,9 +41,7 @@ public class Order {
         this.id = id;
     }
 
-
-    //UNSURE HOW TO DO MAPPING DUE TO ISSUES IN ORDER CLASS
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     public Customer getCustomer() {
         return customer;
@@ -48,15 +49,6 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    //UNSURE HOW TO DO MAPPING DUE TO ISSUES IN ITEM CLASS
-    public Items getItems() {
-        return items;
-    }
-
-    public void setItems(Items items) {
-        this.items = items;
     }
 
     @Column(name = "total_price")
@@ -84,5 +76,42 @@ public class Order {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    public Set<OrderQuantity> getOrderQuantity() {
+        return orderQuantity;
+    }
+
+    public void setOrderQuantity(Set<OrderQuantity> orderQuantity) {
+        this.orderQuantity = orderQuantity;
+    }
+
+    public void updatePrice(double price, int quantity){
+        this.totalPrice += (price * quantity);
+    }
+
+    public void changeOrderStatusToFalse(){
+            this.completeOrder = false;
+    }
+
+    public void changeOrderStatusToTrue(){
+        this.completeOrder = true;
+    }
+
+    public void addOrderQuantityToOrderQuantity(OrderQuantity orderQuantity){
+        this.orderQuantity.add(orderQuantity);
+    }
+
+
+    public int totalItemsInOrder(){
+
+        int total = 0;
+        List<OrderQuantity> quantities = DBHelper.listAllOrderQuantitiesForOrder(this);
+
+        for(OrderQuantity quantity : quantities){
+            total += quantity.getQuantity();
+        }
+        return total;
     }
 }

@@ -1,26 +1,35 @@
 package models.items;
 
+import org.junit.Test;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "electronics" )
 public class Electronics extends Item {
 
-    private int voltage;
+    private String voltage;
 
-    public Electronics(String name, int price, String description, int quantity, int voltage) {
-        super(name, price, description, quantity);
+    public Electronics(String name, double price, String description, String voltage, String pictureLink) {
+        super(name, price, description, pictureLink);
         this.voltage = voltage;
     }
 
     public Electronics() {
     }
 
-    public Electronics(int voltage) {
+    public Electronics(String voltage) {
         this.voltage = voltage;
     }
 
-    public int getVoltage() {
+    @Column(name = "voltage")
+    public String getVoltage() {
         return voltage;
     }
 
-    public void setVoltage(int voltage) {
+    public void setVoltage(String voltage) {
         this.voltage = voltage;
     }
 }

@@ -1,29 +1,40 @@
 package models.items;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import db.DBHelper;
+import models.OrderQuantity;
+import models.ShopStock;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "items")
 public abstract class Item {
 
     private int id;
     private String name;
     private double price;
     private String description;
-    private int quantity;
+    private ShopStock stock;
+    private List<OrderQuantity> orderQuantities;
+    private String pictureLink;
 
-    public Item(String name, double price, String description, int quantity) {
+    public Item(String name, double price, String description, String pictureLink) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.quantity = quantity;
+        this.pictureLink = pictureLink;
+        this.orderQuantities = new ArrayList<OrderQuantity>();
     }
 
     public Item() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -32,6 +43,7 @@ public abstract class Item {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -40,6 +52,7 @@ public abstract class Item {
         this.name = name;
     }
 
+    @Column(name = "price")
     public double getPrice() {
         return price;
     }
@@ -48,6 +61,7 @@ public abstract class Item {
         this.price = price;
     }
 
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -56,16 +70,60 @@ public abstract class Item {
         this.description = description;
     }
 
-    public int getQuantity() {
-        return quantity;
+    @OneToOne(cascade = CascadeType.ALL)
+    public ShopStock getStock() {
+        return stock;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setStock(ShopStock stock) {
+        this.stock = stock;
     }
 
-    public void increaseQuantity(int number){
-        this.quantity += number;
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public List<OrderQuantity> getOrderQuantities() {
+        return orderQuantities;
+    }
+
+    public void setOrderQuantities(List<OrderQuantity> orderQuantities) {
+        this.orderQuantities = orderQuantities;
+    }
+
+    @Column(name = "picture_link")
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
+
+
+    public void addOrderQuantityEntry(OrderQuantity orderQuantity){
+        this.orderQuantities.add(orderQuantity);
+    }
+
+    public String itemType(){
+        String result = this.getClass().toString();
+        result = result.substring(result.lastIndexOf(".") + 1);
+        return  result;
+    }
+
+    public static ArrayList<String> allItemTypes(){
+        List<Item> allItems = DBHelper.getAll(Item.class);
+        ArrayList<String> allItemClasses = new ArrayList<>();
+
+        for (Item item : allItems){
+            String itemclass = item.itemType();
+            if(!allItemClasses.contains(itemclass)){
+                allItemClasses.add(itemclass);
+            }
+
+        }
+        return allItemClasses;
+    }
+
+    public int returnQuantity(){
+        return this.stock.getQuantity();
     }
 
 

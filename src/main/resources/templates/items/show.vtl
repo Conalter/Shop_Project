@@ -1,0 +1,26 @@
+<div>
+    <p> Name: $item.getName()</p>
+    <p> Price: $item.getPrice()</p>
+    <p> Description: $item.getDescription()</p>
+    <p> Quantity: $quantity</p>
+
+    #if($item.itemType() == "Clothing")
+    <p>Size: $item.getSize() </p>
+    #end
+
+    #if($item.itemType() == "Food")
+    <p>Best Before Date: $item.getDate()</p>
+    #end
+
+    #if($item.itemType() == "Electronics")
+    <p>Voltage Rating: $item.getVoltage()</p>
+    #end
+
+    <a href="$item.pictureLink()"/>
+
+</div>
+
+<a href="/items/$item.getId()/edit" class="button center">Edit</a>
+<form action="/items/$item.getId()/delete" method="post">
+    <input type="submit" value="Delete" class="button center">
+</form>
