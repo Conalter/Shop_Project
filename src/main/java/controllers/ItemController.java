@@ -25,21 +25,23 @@ public class ItemController {
     private void setUpEndpoints(){
 
         get("/items/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
             Item item = DBHelper.find(intId, Item.class);
-            Map<String, Object> model = new HashMap<>();
+
             String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            model.put("user", loggedInUser);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+            int id = LoginController.getLoggedInUserId(req, res);
+
+            model.put("id", id);
+            model.put("user", loggedInUser);
             model.put("isLoggedIn", isLoggedIn);
+
             ArrayList<String> sizes = Clothing.sizesAsString();
             model.put("item", item);
             model.put("sizes", sizes);
-
-            int id = LoginController.getLoggedInUserId(req, res);
-            model.put("id", id);
-
 
             model.put("template", "templates/items/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
@@ -47,37 +49,47 @@ public class ItemController {
 
         get("/items", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
+
+            String loggedInUser = LoginController.getLoggedInUsername(req,res);
+            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+            int id = LoginController.getLoggedInUserId(req, res);
+
+            model.put("isLoggedIn", isLoggedIn);
+            model.put("user", loggedInUser);
+            model.put("id", id);
+
+
             List<Clothing> clothing = DBHelper.getAll(Clothing.class);
             List<Electronics> electronics = DBHelper.getAll(Electronics.class);
             List<Food> foods = DBHelper.getAll(Food.class);
             List<String> type = Item.allItemTypes();
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
-            int id = LoginController.getLoggedInUserId(req, res);
-            model.put("id", id);
+
             model.put("itemType", type);
             model.put("clothing", clothing);
             model.put("foods", foods);
             model.put("electronics", electronics);
+
             model.put("template", "templates/items/index.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
         get("/items/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            int id = LoginController.getLoggedInUserId(req, res);
+            String loggedInUser = LoginController.getLoggedInUsername(req,res);
+            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
+            model.put("id", id);
+            model.put("isLoggedIn", isLoggedIn);
+            model.put("user", loggedInUser);
+
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
             Item item = DBHelper.find(intId, Item.class);
             ShopStock stock = item.getStock();
             int quantity = stock.getQuantity();
-            Map<String, Object> model = new HashMap<>();
-            int id = LoginController.getLoggedInUserId(req, res);
-            model.put("id", id);
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+
             model.put("item", item);
             model.put("quantity", quantity);
             model.put("template", "templates/items/show.vtl");
@@ -87,16 +99,20 @@ public class ItemController {
 
         post ("/items/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            model.put("user", loggedInUser);
+
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            model.put("isLoggedIn", isLoggedIn);
+            String loggedInUser = LoginController.getLoggedInUsername(req,res);
             int id = LoginController.getLoggedInUserId(req, res);
+
+            model.put("user", loggedInUser);
+            model.put("isLoggedIn", isLoggedIn);
             model.put("id", id);
+
             String itemType = req.queryParams("type");
             ArrayList<String> sizes = Clothing.sizesAsString();
             model.put("itemType", itemType);
             model.put("sizes", sizes);
+
             model.put("template", "templates/items/create.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
@@ -199,7 +215,6 @@ public class ItemController {
 
 
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-//            model.put("isLoggedIn", isLoggedIn);
             if(isLoggedIn){
                 int customerId = LoginController.getLoggedInUserId(req, res);
                 Customer customer = DBHelper.find(customerId, Customer.class);
