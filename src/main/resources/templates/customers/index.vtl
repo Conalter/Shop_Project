@@ -10,6 +10,8 @@
             <th>Username</th>
             <th>Password</th>
             <th>Money</th>
+            <th>Show</th>
+            <th>Login</th>
         </tr>
         #foreach($customer in  $customers)
         <tr>
@@ -20,9 +22,13 @@
             <td>
                 <a href="/customers/$customer.getId()" class="button">Show</a>
             </td>
+            <td>
+                <form action="/login/$customer.getId()" method="post">
+                    <input type="submit" value="Login" class="button">
+                </form>
+            </td>
         </tr>
         #end
     </table>
 </div>
 
-<a href="/customers" class="button center">Back to Customers</a>

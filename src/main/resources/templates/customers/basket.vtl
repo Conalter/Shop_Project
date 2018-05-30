@@ -1,0 +1,19 @@
+<p class ="pageHeader">Basket</p>
+
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Quantity</th>
+    </tr>
+    #foreach($item in $items)
+    <tr>
+        <td>$item.getName()</td>
+        <td>$item.getPrice()</td>
+        <td>$item.getDescription()</td>
+        <td>$item.returnQuantity()</td>
+    </tr>
+    #end
+</table>

@@ -78,7 +78,7 @@ public class Order {
         this.date = date;
     }
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     public Set<OrderQuantity> getOrderQuantity() {
         return orderQuantity;
     }

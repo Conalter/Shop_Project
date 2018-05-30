@@ -163,5 +163,18 @@ public class DBHelper {
 
     }
 
+    public static Order showCurrentOrder(Customer customer){
+        Order order = null;
+
+        List<Order> orders = listAllOrdersForCustomer(customer);
+
+        for (Order eachOrder : orders){
+            if (!eachOrder.getCompleteOrder()){
+                return eachOrder;
+            }
+        }
+        return order;
+    }
+
 
 }
