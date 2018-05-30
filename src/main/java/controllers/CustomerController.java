@@ -4,6 +4,7 @@ import com.sun.tools.corba.se.idl.constExpr.Or;
 import db.DBHelper;
 import models.Customer;
 import models.Order;
+import models.OrderQuantity;
 import models.items.Item;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -54,7 +55,9 @@ public class CustomerController {
             Customer customer = DBHelper.find(id, Customer.class);
             Order basket = DBHelper.showCurrentOrder(customer);
             List<Item> items = DBHelper.listAllItemsForOrder(basket);
+            List<OrderQuantity> quantities = DBHelper.listAllOrderQuantitiesForOrder(basket);
 
+            model.put("quantities", quantities);
             model.put("basket", basket);
             model.put("items", items);
 
