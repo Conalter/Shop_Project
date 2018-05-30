@@ -1,6 +1,7 @@
 package models.items;
 
 import db.DBHelper;
+import models.Order;
 import models.OrderQuantity;
 import models.ShopStock;
 
@@ -122,9 +123,12 @@ public abstract class Item {
         return allItemClasses;
     }
 
-    public int returnQuantity(){
+    public int returnStockQuantity(){
         return this.stock.getQuantity();
     }
+
+
+
 
 
 }
