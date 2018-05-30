@@ -27,17 +27,11 @@ public class ItemController {
         get("/items/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
+            LoginController.setupLoginInfo(model, req, res);
+
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
             Item item = DBHelper.find(intId, Item.class);
-
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            int id = LoginController.getLoggedInUserId(req, res);
-
-            model.put("id", id);
-            model.put("user", loggedInUser);
-            model.put("isLoggedIn", isLoggedIn);
 
             ArrayList<String> sizes = Clothing.sizesAsString();
             model.put("item", item);
@@ -50,14 +44,7 @@ public class ItemController {
         get("/items", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            int id = LoginController.getLoggedInUserId(req, res);
-
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
-            model.put("id", id);
-
+            LoginController.setupLoginInfo(model, req, res);
 
             List<Clothing> clothing = DBHelper.getAll(Clothing.class);
             List<Electronics> electronics = DBHelper.getAll(Electronics.class);
@@ -76,13 +63,7 @@ public class ItemController {
         get("/items/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            int id = LoginController.getLoggedInUserId(req, res);
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-
-            model.put("id", id);
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+            LoginController.setupLoginInfo(model, req, res);
 
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
@@ -100,13 +81,7 @@ public class ItemController {
         post ("/items/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            int id = LoginController.getLoggedInUserId(req, res);
-
-            model.put("user", loggedInUser);
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("id", id);
+            LoginController.setupLoginInfo(model, req, res);
 
             String itemType = req.queryParams("type");
             ArrayList<String> sizes = Clothing.sizesAsString();
