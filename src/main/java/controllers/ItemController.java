@@ -191,7 +191,7 @@ public class ItemController {
 
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
             if(isLoggedIn){
-                int customerId = LoginController.getLoggedInUserId(req, res);
+                int customerId = LoginController.getLoggedInCustomer(req, res).getId();
                 Customer customer = DBHelper.find(customerId, Customer.class);
                 Order basket = DBHelper.showCurrentOrder(customer);
 

@@ -23,10 +23,7 @@ public class OrderController {
         get("/orders", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            model.put("user", loggedInUser);
-            model.put("isLoggedIn", isLoggedIn);
+            LoginController.setupLoginInfo(model, req, res);
 
             List<Order> orders = DBHelper.getAll(Order.class);
             model.put("orders", orders);

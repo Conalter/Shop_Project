@@ -33,13 +33,19 @@ public class LoginController {
     }
 
     public static boolean isLoggedIn(Request req, Response res){
-        Customer customer = getLoggedInCustomer(req, res);
-        String user = customer.getUsername();
-        if(user == null || user == ""){
+
+
+        if( req.session().attribute("currentCustomer") == (null)){
             return false;
-        } else {
-            return true;
         }
+        return true;
+//        Customer customer = getLoggedInCustomer(req, res);
+//        String user = customer.getUsername();
+//        if(user == null || user == ""){
+//            return false;
+//        } else {
+//            return true;
+//        }
     }
 
     public static Customer getLoggedInCustomer(Request req, Response res) {
