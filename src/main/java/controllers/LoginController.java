@@ -31,6 +31,7 @@ public class LoginController {
             req.session().attribute("currentUsername", user.getName());
             req.session().attribute("currentUserUsername", user.getUsername());
             req.session().attribute("currentUserPassword", user.getPassword());
+            req.session().attribute("currentCustomer", user);
             res.redirect("/");
             return null;
         }, new VelocityTemplateEngine());
@@ -43,6 +44,11 @@ public class LoginController {
         } else {
             return true;
         }
+    }
+
+    public static Customer getLoggedInCustomer(Request req, Response res) {
+        int id = req.session().attribute("currentUserId");
+        return DBHelper.find(id, Customer.class);
     }
 
     public static int getLoggedInUserId(Request req, Response res) {

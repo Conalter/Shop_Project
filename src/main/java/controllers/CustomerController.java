@@ -25,22 +25,30 @@ public class CustomerController {
     private void setUpEndpoints() {
         get("/customers", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
             List<Customer> customers = DBHelper.getAll(Customer.class);
+
             String loggedInUser = LoginController.getLoggedInUsername(req,res);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
             model.put("isLoggedIn", isLoggedIn);
             model.put("user", loggedInUser);
+
             model.put("customers", customers);
             model.put("template", "templates/customers/index.vtl");
+
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
         get("/customers/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
+
             String loggedInUser = LoginController.getLoggedInUsername(req,res);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
             model.put("isLoggedIn", isLoggedIn);
             model.put("user", loggedInUser);
+
             model.put("template", "templates/customers/create.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
@@ -50,6 +58,7 @@ public class CustomerController {
 
             String loggedInUser = LoginController.getLoggedInUsername(req,res);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
             model.put("isLoggedIn", isLoggedIn);
             model.put("user", loggedInUser);
 
@@ -58,7 +67,9 @@ public class CustomerController {
             Order basket = DBHelper.showCurrentOrder(customer);
             List<Item> items = DBHelper.listAllItemsForOrder(basket);
 
+            model.put("basket", basket);
             model.put("items", items);
+
             model.put("template", "templates/customers/basket.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
@@ -66,39 +77,54 @@ public class CustomerController {
 
 
         get("/customers/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            String loggedInUser = LoginController.getLoggedInUsername(req,res);
+            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
+            model.put("isLoggedIn", isLoggedIn);
+            model.put("user", loggedInUser);
+
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
             Customer customer = DBHelper.find(intId, Customer.class);
             List<Order> orders = DBHelper.listAllOrdersForCustomer(customer);
-            Map<String, Object> model = new HashMap<>();
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            model.put("isLoggedIn", isLoggedIn);
-            model.put("user", loggedInUser);
+
             model.put("customer", customer);
             model.put("orders", orders);
-            model.put("template", "templates/customers/show.vtl");
 
+            model.put("template", "templates/customers/show.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
 
         get("/customer/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
             String loggedInUser = LoginController.getLoggedInUsername(req,res);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
             model.put("isLoggedIn", isLoggedIn);
             model.put("user", loggedInUser);
+
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
             Customer customer = DBHelper.find(intId, Customer.class);
             model.put("customer", customer);
-            model.put("template", "templates/customers/edit.vtl");
 
+            model.put("template", "templates/customers/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
         post("/customer/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            String loggedInUser = LoginController.getLoggedInUsername(req,res);
+            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
+            model.put("user", loggedInUser);
+            model.put("isLoggedIn", isLoggedIn);
+
             String strId = req.params(":id");
             Integer intId = Integer.parseInt(strId);
             Customer customer = DBHelper.find(intId, Customer.class);
@@ -112,12 +138,6 @@ public class CustomerController {
             customer.setUsername(username);
             customer.setPassword(password);
             customer.setMoney(money);
-
-            Map<String, Object> model = new HashMap<>();
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            model.put("user", loggedInUser);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            model.put("isLoggedIn", isLoggedIn);
 
             DBHelper.save(customer);
             res.redirect("/customers");
@@ -134,9 +154,11 @@ public class CustomerController {
 
         post("/customer", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
             String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            model.put("user", loggedInUser);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+
+            model.put("user", loggedInUser);
             model.put("isLoggedIn", isLoggedIn);
 
             String name = req.queryParams("name");

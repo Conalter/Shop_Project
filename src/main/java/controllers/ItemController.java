@@ -36,6 +36,11 @@ public class ItemController {
             ArrayList<String> sizes = Clothing.sizesAsString();
             model.put("item", item);
             model.put("sizes", sizes);
+
+            int id = LoginController.getLoggedInUserId(req, res);
+            model.put("id", id);
+
+
             model.put("template", "templates/items/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
@@ -50,6 +55,8 @@ public class ItemController {
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
             model.put("isLoggedIn", isLoggedIn);
             model.put("user", loggedInUser);
+            int id = LoginController.getLoggedInUserId(req, res);
+            model.put("id", id);
             model.put("itemType", type);
             model.put("clothing", clothing);
             model.put("foods", foods);
@@ -65,6 +72,8 @@ public class ItemController {
             ShopStock stock = item.getStock();
             int quantity = stock.getQuantity();
             Map<String, Object> model = new HashMap<>();
+            int id = LoginController.getLoggedInUserId(req, res);
+            model.put("id", id);
             String loggedInUser = LoginController.getLoggedInUsername(req,res);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
             model.put("isLoggedIn", isLoggedIn);
@@ -82,6 +91,8 @@ public class ItemController {
             model.put("user", loggedInUser);
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
             model.put("isLoggedIn", isLoggedIn);
+            int id = LoginController.getLoggedInUserId(req, res);
+            model.put("id", id);
             String itemType = req.queryParams("type");
             ArrayList<String> sizes = Clothing.sizesAsString();
             model.put("itemType", itemType);
@@ -144,41 +155,41 @@ public class ItemController {
         }, new VelocityTemplateEngine());
 
 
-    post ("/items", (req, res) -> {
+        post ("/items", (req, res) -> {
 
-        String name = req.queryParams("name");
-        double price = Double.parseDouble(req.queryParams("price"));
-        String description = req.queryParams("description");
-        String pictureLink = req.queryParams("pictureLink");
-        int quantity = Integer.parseInt((req.queryParams("quantity")));
-        String itemClass = req.queryParams("type");
+            String name = req.queryParams("name");
+            double price = Double.parseDouble(req.queryParams("price"));
+            String description = req.queryParams("description");
+            String pictureLink = req.queryParams("pictureLink");
+            int quantity = Integer.parseInt((req.queryParams("quantity")));
+            String itemClass = req.queryParams("type");
 
-        switch (itemClass) {
-            case "Food":
-                String date = req.queryParams("date");
-                Food newFood = new Food(name, price, description, date, pictureLink);
-                DBHelper.save(newFood);
-                DBHelper.addItemToStock(newFood, quantity);
-                break;
-            case "Electronics":
-                String voltage = req.queryParams("voltage");
-                Electronics newElectronic = new Electronics(name, price, description, voltage, pictureLink);
-                DBHelper.save(newElectronic);
-                DBHelper.addItemToStock(newElectronic, quantity);
-                break;
-            case "Clothing":
-                String size = req.queryParams("size");
-                Size option = Size.valueOf(size);
-                Clothing newClothing = new Clothing(name, price, description, option, pictureLink);
-                DBHelper.save(newClothing);
-                DBHelper.addItemToStock(newClothing, quantity);
-                break;
-        }
+            switch (itemClass) {
+                case "Food":
+                    String date = req.queryParams("date");
+                    Food newFood = new Food(name, price, description, date, pictureLink);
+                    DBHelper.save(newFood);
+                    DBHelper.addItemToStock(newFood, quantity);
+                    break;
+                case "Electronics":
+                    String voltage = req.queryParams("voltage");
+                    Electronics newElectronic = new Electronics(name, price, description, voltage, pictureLink);
+                    DBHelper.save(newElectronic);
+                    DBHelper.addItemToStock(newElectronic, quantity);
+                    break;
+                case "Clothing":
+                    String size = req.queryParams("size");
+                    Size option = Size.valueOf(size);
+                    Clothing newClothing = new Clothing(name, price, description, option, pictureLink);
+                    DBHelper.save(newClothing);
+                    DBHelper.addItemToStock(newClothing, quantity);
+                    break;
+            }
 
-        res.redirect("/items");
-        return null;
+            res.redirect("/items");
+            return null;
 
-    }, new VelocityTemplateEngine());
+        }, new VelocityTemplateEngine());
 
         post ("/items/:id/addToOrder", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
@@ -186,7 +197,6 @@ public class ItemController {
 
             int quantity = Integer.parseInt(req.queryParams("quantity"));
 
-            Map<String, Object> model = new HashMap<>();
 
             boolean isLoggedIn = LoginController.isLoggedIn(req,res);
 //            model.put("isLoggedIn", isLoggedIn);
@@ -197,12 +207,6 @@ public class ItemController {
 
                 DBHelper.addItemToOrder(item, basket, quantity);
             }
-
-
-
-
-
-
 
             res.redirect("/items");
             return null;

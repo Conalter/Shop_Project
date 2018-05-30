@@ -79,7 +79,7 @@ public abstract class Item {
         this.stock = stock;
     }
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<OrderQuantity> getOrderQuantities() {
         return orderQuantities;
     }
