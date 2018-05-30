@@ -1,20 +1,38 @@
 <p class ="pageHeader">New Customer</p>
-
+<style>
+  .container {
+  display: grid;
+  justify-content: space-evenly;
+  background-color: #F26F6F;
+  padding: 3px;
+}
+</style>
 <form action="/customer" method="post">
 
+    <div class="container"></div>
+    <div></div>
     <label for="name"> Customer Name</label>
+    <div></div>
     <input class="inputbox" type="text" name="name" required="true" id="name">
 
+    <div></div>
     <label for="username"> Username</label>
+    <div></div>
     <input class="inputbox " type="text" name="username" required="true" id ="username">
 
+    <div></div>
     <label for="password"> Password</label>
+    <div></div>
     <input class="inputbox " type="text" name="password" required="true" id ="password">
 
+    <div></div>
     <label for="money"> Money(£):</label>
+    <div></div>
     <input class="inputbox " type="number" name="money" required="true" id="money">
 
+    <div></div>
     <input type="submit" value="Save" class="button">
+    <div></div>
 </form>
 
 <a href="/customers" class="button center">Cancel</a>

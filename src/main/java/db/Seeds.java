@@ -10,9 +10,9 @@ import java.util.List;
 public class Seeds {
 
     public static void seedData(){
-        Customer customer1 = new Customer("Name 1", "username 1", "password 1", 100.00);
-        Customer customer2 = new Customer("Name 2", "username 2", "password 2", 200.00);
-        Customer customer3 = new Customer("Name 3", "username 3", "password 3", 300.00);
+        Customer customer1 = new Customer("David Swan", "Swanny", "password 123", 100.00);
+        Customer customer2 = new Customer("Harry Goose", "Goosey", "password ABC", 200.00);
+        Customer customer3 = new Customer("Sasha Buzzard", "Buzzy", "password XYZ", 300.00);
 
         DBHelper.save(customer1);
         DBHelper.save(customer2);
@@ -33,13 +33,13 @@ public class Seeds {
         DBHelper.save(food1);
         DBHelper.save(electronics1);
 
-        DBHelper.addItemToStock(clothing1, 10);
-        DBHelper.addItemToStock(food1, 5);
-        DBHelper.addItemToStock(electronics1, 100);
+        DBHelper.addItemToStock(clothing1, 2);
+        DBHelper.addItemToStock(food1, 4);
+        DBHelper.addItemToStock(electronics1, 1);
 
-        DBHelper.addItemToOrder(clothing1, order1, 45);
-        DBHelper.addItemToOrder(food1, order1, 50);
-        DBHelper.addItemToOrder(electronics1, order1, 55);
+        DBHelper.addItemToOrder(clothing1, order1, 4);
+        DBHelper.addItemToOrder(food1, order1, 5);
+        DBHelper.addItemToOrder(electronics1, order1, 2);
 
 
 //        List<OrderQuantity> orderOneOrderQuantites = DBHelper.listAllOrderQuantitiesForOrder(order1);

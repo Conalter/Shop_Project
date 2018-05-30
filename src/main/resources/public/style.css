@@ -1,14 +1,39 @@
 
-
 body {
+
     font-family: Helvetica, Verdana, Arial, sans-serif;
     align : center;
+    background: #FF8C1A;
 
 }
 
-.header {
+
+.rainbow {
+ -webkit-animation: rainbow 3s infinite;
+ font-family: Helvetica;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-size: 72px;
+  padding-top: 30px;
+  margin: 2px;
+  text-decoration: none;
+}
+
+@-webkit-keyframes rainbow{
+ 25%{color: #FF8C1A;}
+ 50%{color: #00ff00;}
+ 50%{colour: #ffffff;}
+ 75%{color: #ff0000;}
+ 100%{colour: #ffffff;}
+}
     text-align: center;
     color: yellow;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 80px 200px auto 40px;
 }
 
 .center {
@@ -16,7 +41,7 @@ body {
    margin-right: auto;
 }
 
-table {
+.table {
   min-width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -36,7 +61,7 @@ table {
 
 .inputbox {
     font: 0.8em Arial;
-    width : 20%;
+    width : 40%;
 }
 
 input {
@@ -55,7 +80,7 @@ th, td {
 .pageHeader {
     font: bold 4.0em Arial;
     text-align: center;
-    color: blue;
+    color: #F26F6F;
 }
 
 .button {
