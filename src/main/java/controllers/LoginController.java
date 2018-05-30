@@ -7,6 +7,8 @@ import spark.Request;
 import spark.Response;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.util.Map;
+
 import static spark.Spark.post;
 
 public class LoginController {
@@ -62,6 +64,16 @@ public class LoginController {
     public static String getLoggedInPassword(Request req, Response res) {
         String password = req.session().attribute("currentUserPassword");
         return password;
+    }
+
+    public static void setupLoginInfo(Map<String, Object> model, Request req, Response res){
+
+        boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+        if(isLoggedIn){
+            Customer loggedInCutomer = LoginController.getLoggedInCustomer(req, res);
+            model.put("user", loggedInCutomer);
+        }
+        model.put("isLoggedIn", isLoggedIn);
     }
 
 
