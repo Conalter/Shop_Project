@@ -22,12 +22,12 @@ public class OrderController {
 
         get("/orders", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
-            String loggedInUser = LoginController.getLoggedInUsername(req,res);
-            model.put("user", loggedInUser);
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            model.put("isLoggedIn", isLoggedIn);
+
+            LoginController.setupLoginInfo(model, req, res);
+
             List<Order> orders = DBHelper.getAll(Order.class);
             model.put("orders", orders);
+
             model.put("template", "templates/orders/index.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());

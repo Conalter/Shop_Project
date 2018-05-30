@@ -2,6 +2,7 @@ package controllers;
 
 import db.DBHelper;
 import db.Seeds;
+import models.Customer;
 import models.items.Item;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -28,14 +29,7 @@ public class MainController {
         get("/", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
-            if(isLoggedIn){
-                String loggedInUser = LoginController.getLoggedInUsername(req,res);
-                int id = LoginController.getLoggedInUserId(req, res);
-                model.put("user", loggedInUser);
-                model.put("id", id);
-            }
-            model.put("isLoggedIn", isLoggedIn);
+            LoginController.setupLoginInfo(model, req, res);
 
             model.put("template", "templates/main.vtl");
 

@@ -11,15 +11,13 @@
     <title>Document</title>
 
     #if($isLoggedIn)
-    <p>Logged in Customer: $user</p>
-    <a href="/customers/$id/order" class="button center">Basket</a>
+    <p>Logged in Customer: $user.getUsername() ($user.getName())</p>
+    <a href="/customers/$user.getId()/order" class="button center">Basket</a>
 
     #else
     <p>No User is logged in</p>
     #end
 
-
-    <a href="/customers" class="button center">Cancel</a>
 </head>
 <body>
 

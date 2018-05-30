@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class DBHelper {
         List<T> results = null;
         try {
             Criteria cr = session.createCriteria(classType);
+            cr.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
             results = cr.list();
         } catch (HibernateException e) {
             e.printStackTrace();
