@@ -30,8 +30,9 @@
             <td>$item.returnQuantity()</td>
             <td> <a href="/items/$item.getId()" class="button">View Details</a> </td>
             <td>
-                <input id="clothingQuantity" type="number">
+
                 <form action="/items/$item.getId()/addToOrder" method="post">
+                    <input id="quantity" type="number" name ="quantity">
                     <input type="submit" value="Add To Order" class="button">
                 </form>
             </td>

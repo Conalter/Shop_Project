@@ -1,5 +1,7 @@
 package models;
 
+import db.DBHelper;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class Customer {
         this.password = password;
         this.money = money;
         this.orderHistory = new ArrayList<Order>();
+        this.order = new Order("Date", this);
     }
 
     public Customer() {

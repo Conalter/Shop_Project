@@ -1,6 +1,8 @@
 package controllers;
 
 import db.DBHelper;
+import models.Customer;
+import models.Order;
 import models.ShopStock;
 import models.items.*;
 import spark.ModelAndView;
@@ -177,6 +179,34 @@ public class ItemController {
         return null;
 
     }, new VelocityTemplateEngine());
+
+        post ("/items/:id/addToOrder", (req, res) -> {
+            int id = Integer.parseInt(req.params(":id"));
+            Item item = DBHelper.find(id, Item.class);
+
+            int quantity = Integer.parseInt(req.queryParams("quantity"));
+
+            Map<String, Object> model = new HashMap<>();
+
+            boolean isLoggedIn = LoginController.isLoggedIn(req,res);
+//            model.put("isLoggedIn", isLoggedIn);
+            if(isLoggedIn){
+                int customerId = LoginController.getLoggedInUserId(req, res);
+                Customer customer = DBHelper.find(customerId, Customer.class);
+                Order basket = DBHelper.showCurrentOrder(customer);
+
+                DBHelper.addItemToOrder(item, basket, quantity);
+            }
+
+
+
+
+
+
+
+            res.redirect("/items");
+            return null;
+        }, new VelocityTemplateEngine());
 
     }
 

@@ -12,6 +12,8 @@
 
     #if($isLoggedIn)
     <p>Logged in Customer: $user</p>
+    <a href="/customers/$id/order" class="button center">Basket</a>
+
     #else
     <p>No User is logged in</p>
     #end
