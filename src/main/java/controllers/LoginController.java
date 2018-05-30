@@ -17,13 +17,6 @@ public class LoginController {
 
     private void setUpEndpoints(){
 
-//        post("/login/:username", (req, res) -> {
-//            String inputtedUsername = req.params(":username");
-//            req.session().attribute("username", inputtedUsername);
-//            res.redirect("/");
-//            return null;
-//        }, new VelocityTemplateEngine());
-
         post("/login/:id", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Customer user = DBHelper.find(id, Customer.class);
